@@ -32,21 +32,22 @@ public class LoginController {
 	
 //	세션에 uid저장
 	@PostMapping("/loginForm")
-	public String login(@RequestParam("uid")String uid, @RequestParam("upw")String upw, HttpSession session,Model model,User user){
+	public String login(@RequestParam("uid")String uidMac, @RequestParam("upw")String upwMac, HttpSession session,Model model,User user){
          
-		if(uid!=null) {
-		session.setAttribute("uid", uid);
+		if(uidMac!=null) {
+		session.setAttribute("uidMac", uidMac);
 //		Map<String, Object>map=new HashMap<String,Object>();
 //		map.put("login", true);
-//		map.put("uid",uid);
-//		map.put("upw",upw);
-		System.out.println(session.getAttribute("uid")+"1");
-		model.addAttribute("uid",session.getAttribute("uid").toString());
+//		map.put("uidMac",uidMac);
+//		map.put("upwMac",upwMac);
+//		map.put("user", user);
+		model.addAttribute("uidMac",session.getAttribute("uidMac").toString());
+		model.addAttribute("msg", session.getAttribute("uidMac").toString()+"님 환영합니다");
 		//return map;
 		
 		return "thymeleaf/home/home";
 		}
-		return null;
+		return null ;
 	
 	}
 	

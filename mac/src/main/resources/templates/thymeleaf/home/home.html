@@ -37,6 +37,11 @@ a:hover { /* a태그에 마우스가 올라갈 때 라는 의미*/
 	text-decoration: underline;
 }
 </style>
+
+<script type="text/javascript">
+var msg = '[[${msg}]]';
+if(msg)alert(msg);
+</script>
 </head>
 <body>
 
@@ -61,9 +66,8 @@ a:hover { /* a태그에 마우스가 올라갈 때 라는 의미*/
 			
 			</div>
 			<div th:if="${user !=null}">
-			 <a id="logout" href="/login/logout"> <strong>회원가입</strong></a>
-			 <a th:href="'/user/detail/'+ ${user.uid}"> <strong>마이페이지</strong></a>
-				<!-- th:href="'/user/detaili/'+${user.id}">마이페이지</a>  -->
+			 <a id="logout" href="/login/logout"> <strong>로그아웃</strong></a>
+			 <a th:href="'/user/detail/'+ ${user.uidMac}"> <strong>마이페이지</strong></a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"

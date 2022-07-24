@@ -85,8 +85,10 @@ a {
 			dataType : 'json',
 			success : function(res) {
 				alert(res.login ? '로그인 성공' : '로그인 실패');
-				if(res.login==true){}
+				if(res.login==true){
 				location.href="/home"
+				
+				}
 			},
 			error : function(xhr, status, err) {
 				alert(err);
@@ -178,7 +180,7 @@ a {
 			<a href="/user/add">회원등록</a> | <a href="">아이디/암호 찾기</a> | <a
 				href="javascript:logout();">로그아웃</a>
 		</div>
-		<form id="loginForm" method="post" action="/login/loginForm"  > <!-- onsubmit="return login();" -->
+		<form id="loginForm" method="post" action="/login/loginForm" > <!--onsubmit="return login();"-->
 			<div>
 				<label for="uid">아이디</label><input type="text" id="uid" name="uid"
 					placeholder="아이디">
