@@ -5,31 +5,32 @@
 <mapper namespace="com.mac.demo.mappers.BoardMapper">
 
 	<insert id="add" parameterType="com.mac.demo.model.User">
-		INSERT INTO board(num,title,contents,nickname,wdate,pcode,type) VALUES(BOARD_NUM.NEXTVAL,#{title},#{contents},#{nickname},SYSDATE,#{pcode},type)
+		INSERT INTO board(numMac,titleMac,contentsMac,nicknameMac,wdateMac,pcodeMac,typeMac) 
+		VALUES(BOARD_NUM.NEXTVAL,#{titleMac},#{contentsMac},#{nicknameMac},SYSDATE,#{pcodeMac},typeMac)
 	</insert>
 
 	<select id="getList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE type not in(ads,notice)
+		SELECT * FROM board WHERE typeMac not in(ads,notice)
 	</select>
 	
 	<select id="getAdsList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE type=ads
+		SELECT * FROM board WHERE typeMac=ads
 	</select>
 	
 	<select id="getNoticeList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE type=notice
+		SELECT * FROM board WHERE typeMac=notice
 	</select>
 	
 	<select id="getDetail" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE num=#{num}
+		SELECT * FROM board WHERE numMac=#{numMac}
 	</select>
 
 	<update id="edit" parameterType="com.mac.demo.model.Board">
-		UPDATE board SET title=#{title}, contents=#{contents} WHERE num=#{num}
+		UPDATE board SET titleMac=#{titleMac}, contentsMac=#{contentsMac} WHERE numMac=#{numMac}
 	</update>
 	
 	<delete id="delete" parameterType="com.mac.demo.model.Board">
-		DELETE FROM board WHERE num=#{num}
+		DELETE FROM board WHERE numMac=#{numMac}
 	</delete>
 
 </mapper>

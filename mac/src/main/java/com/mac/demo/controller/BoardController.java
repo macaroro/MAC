@@ -118,7 +118,7 @@ public class BoardController {
 	public String update(@PathVariable("num") int num, Model model) {
 
 		Board board = new Board();
-		board.setNum(num);
+		board.setNumMac(num);
 		model.addAttribute("board", dao.edit(board));
 		
 		return "board/boardEdit";
@@ -128,9 +128,9 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> edit(@PathVariable("num") int num, Board newBoard, Model model) {
 
-		newBoard.setNum(num);
-		newBoard.setContents(newBoard.getContents());
-		newBoard.setTitle(newBoard.getTitle());
+		newBoard.setNumMac(num);
+		newBoard.setContentsMac(newBoard.getContentsMac());
+		newBoard.setTitleMac(newBoard.getTitleMac());
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean updated = dao.edit(newBoard)>0;

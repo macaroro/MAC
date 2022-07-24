@@ -63,7 +63,7 @@ public class UserController {
 	public String mypage(@PathVariable("uid") String uid, Model model) {
 		
 		User user = new User();
-		user.setUid(uid);
+		user.setUidMac(uid);
 		model.addAttribute("user", dao.getMypage(uid));
 		return "user/mypage";
 	}
@@ -73,7 +73,7 @@ public class UserController {
 	public String update(@PathVariable("uid") String uid, Model model) {
 
 		User user = new User();
-		user.setUid(uid);
+		user.setUidMac(uid);
 		model.addAttribute("board", dao.edit(user));
 		
 		return "/user/mypage2";
@@ -83,12 +83,12 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> edit(@PathVariable("uid") String uid, User newUser, Model model) {
 
-		newUser.setUpw(uid);
-		newUser.setUpw(newUser.getUpw());
-		newUser.setEmail(newUser.getEmail());
-		newUser.setCity(newUser.getCity());
-		newUser.setTown(newUser.getTown());
-		newUser.setVillage(newUser.getVillage());
+		newUser.setUpwMac(uid);
+		newUser.setUpwMac(newUser.getUpwMac());
+		newUser.setEmailMac(newUser.getEmailMac());
+		newUser.setCityMac(newUser.getCityMac());
+		newUser.setTownMac(newUser.getTownMac());
+		newUser.setVillageMac(newUser.getVillageMac());
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean updated = dao.edit(newUser)>0;
