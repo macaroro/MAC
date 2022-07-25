@@ -54,9 +54,10 @@ public class LoginController {
 //	로그아웃메소드
 	@GetMapping("/logout")
 	@ResponseBody
-	public Map<String,Object> logout(SessionStatus status) 
-	{
-		status.setComplete();
+	public Map<String,Object> logout(HttpSession session) 
+	{ 
+		System.out.println(session.getAttribute("uidMac"));
+		 session.invalidate();
 
 		Map<String,Object> map = new HashMap<>();
 		map.put("logout", true);

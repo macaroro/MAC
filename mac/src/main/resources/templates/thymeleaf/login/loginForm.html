@@ -106,7 +106,7 @@ a {
 			cache : false,
 			dataType : 'json',
 			success : function(res) {
-				alert(res.logout ? '로그아웃 성공' : '로그아웃 실패');
+				alert(res.logout==true? '로그아웃 성공' : '로그아웃 실패');
 			},
 			error : function(xhr, status, err) {
 				alert(err);
@@ -129,9 +129,15 @@ a {
 			</a>
 		</div>
 		<div>
-			<a id="login" href="/login/loginForm"> <strong>로그인</strong>
-			</a>/ <a id="add" href="/user/add"> <strong>회원가입</strong>
-			</a>
+			<div th:if="${user==null}">
+			<a id="login" href="/login/loginForm"> <strong>로그인</strong></a>/
+			<a id="add" href="/user/add"> <strong>회원가입</strong></a>
+			
+			</div>
+			<div th:if="${user !=null}">
+			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
+			 <a th:href="'/user/detail/'+ ${user.uidMac}"> <strong>마이페이지</strong></a>
+			</div>
 		</div>
 		<div>
 			<button class="navbar-toggler" type="button"
