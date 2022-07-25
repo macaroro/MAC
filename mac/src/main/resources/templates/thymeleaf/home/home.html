@@ -81,13 +81,13 @@ function logout() {
 						<circle cx="12" cy="13" r="4" /></svg> <strong>상권현황제공 창업커뮤니티</strong>
 				</a>
 			</div>
-			<div th:if="${user==null}">
+			<div th:if="${uidMac==null}">
 			<a href="/login/loginForm"> <strong>로그인</strong></a>
 			<a href="/user/add"> <strong>회원가입</strong></a>
 			</div>
-			<div th:if="${user !=null}">
+			<div th:if="${uidMac !=null}">
 			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
-			 <a th:href="'/user/detail/'+ ${user.uidMac}"> <strong>마이페이지</strong></a>
+			 <a th:href="'/user/detail/'+ ${uidMac}"> <strong>마이페이지</strong></a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"
