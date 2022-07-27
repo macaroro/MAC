@@ -7,8 +7,8 @@ public class User {
 	
 	private String nameMac; //이름
 	private Date birthMac; //생년월일
-	private String uidMac; //아이디
-	private String upwMac;  //비밀번호
+	private String idMac; //아이디
+	private String pwMac;  //비밀번호
 	private int phoneNumMac;  //전화번호
 	private String nickNameMac; //닉네임
 	private String genderMac; //성별
@@ -29,17 +29,17 @@ public class User {
 	public void setBirthMac(Date birthMac) {
 		this.birthMac = birthMac;
 	}
-	public String getUidMac() {
-		return uidMac;
+	public String getIdMac() {
+		return idMac;
 	}
-	public void setUidMac(String uidMac) {
-		this.uidMac = uidMac;
+	public void setIdMac(String idMac) {
+		this.idMac = idMac;
 	}
-	public String getUpwMac() {
-		return upwMac;
+	public String getPwMac() {
+		return pwMac;
 	}
-	public void setUpwMac(String upwMac) {
-		this.upwMac = upwMac;
+	public void setPwMac(String pwMac) {
+		this.pwMac = pwMac;
 	}
 	public int getPhoneNumMac() {
 		return phoneNumMac;

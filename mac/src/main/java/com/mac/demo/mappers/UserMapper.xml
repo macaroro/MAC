@@ -4,31 +4,21 @@
 
 <mapper namespace="com.mac.demo.mappers.UserMapper">
 
-	<insert id="add" parameterType="com.mac.demo.model.User">
-		INSERT INTO user(nameMac,birthMac,uidMac,upwMac,phoneNumMac,emailMac,nickNameMac,genderMac,cityMac,townMac,villageMac,managerMac)
-	    VALUES(#{nameMac},#{birthMac},#{uidMac},#{upwMac},#{phoneNumMac},#{emailMac},#{nickNameMac},#{genderMac},#{emailMac},#{cityMac},#{townMac},#{villageMac},#{managerMac})
-	</insert>
+<insert parameterType="com.mac.demo.model.User" id="add">INSERT INTO user_tb(nameMac,birthMac,uidMac,upwMac,phoneNumMac,emailMac,nickNameMac,genderMac,cityMac,townMac,villageMac,managerMac)VALUES(#{nameMac},#{birthMac},#{uidMac},#{upwMac},#{phoneNumMac},#{emailMac},#{nickNameMac},#{genderMac},#{emailMac},#{cityMac},#{townMac},#{villageMac},#{managerMac}) </insert>
 
-	<select id="getList" resultType="com.mac.demo.model.User">
-		SELECT * FROM user
-	</select>
-	
-	<select id="getDetail" resultType="com.mac.demo.model.User">
-		SELECT * FROM user WHERE uidMac=#{uidMac}
-	</select>
+<select id="getList" resultType="com.mac.demo.model.User">SELECT * FROM user_tb </select>
 
-	<update id="edit" parameterType="com.mac.demo.model.User">
-		UPDATE user SET nameMac=#{nameMac}, birthMac=#{birthMac}, cityMac=#{cityMac}, townMac=#{townMac}, villageMac=#{villageMac}, 
-		emailMac=#{emailMac}, genderMac=#{genderMac}, upwMac=#{upwMac} WHERE uidMac=#{uidMac}
-	</update>
-	
-	<delete id="delete" parameterType="com.mac.demo.model.User">
-		DELETE FROM user WHERE userMac=#{userMac}
-	</delete>
-	
-	<select id="getiD" resultType="com.mac.demo.model.User" 
-	                   parameterType="String">
-		SELECT id FROM user WHERE idMac=#{uidMac}
-	</select>
 
+
+<update parameterType="com.mac.demo.model.User" id="edit">UPDATE user_tb SET nameMac=#{nameMac}, birthMac=#{birthMac}, cityMac=#{cityMac}, townMac=#{townMac}, villageMac=#{villageMac},emailMac=#{emailMac}, genderMac=#{genderMac}, upwMac=#{upwMac} WHERE uidMac=#{uidMac} </update>
+
+<delete parameterType="com.mac.demo.model.User" id="delete">DELETE FROM user_tb WHERE idMac=#{idMac} </delete>
+
+
+<!-- 여기서 부터 수정한 부분(로그인 확인, nickaname으로 인물정보 가져오기 -->
+<select parameterType="String" id="getId" resultType="String">SELECT idMac FROM user_tb WHERE idMac=#{idMac} AND pwMac=#{pwMac} </select><!-- 건든부분 -->
+
+<select parameterType="String" id="getNickNameMac" resultType="String">SELECT nickNameMac FROM user_tb WHERE idMac=#{idMac}</select><!-- 건든부분 -->
+
+<select id="getMypage" resultType="com.mac.demo.model.User">SELECT * FROM user_tb WHERE nickNameMac=#{nickNameMac} </select>
 </mapper>

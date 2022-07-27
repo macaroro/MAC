@@ -63,7 +63,7 @@ public class UserController {
 	public String mypage(@PathVariable("uid") String uid, Model model) {
 		
 		User user = new User();
-		user.setUidMac(uid);
+		user.setIdMac(uid);
 		model.addAttribute("user", dao.getMypage(uid));
 		return "user/mypage";
 	}
@@ -73,7 +73,7 @@ public class UserController {
 	public String update(@PathVariable("uid") String uid, Model model) {
 
 		User user = new User();
-		user.setUidMac(uid);
+		user.setIdMac(uid);
 		model.addAttribute("board", dao.edit(user));
 		
 		return "/user/mypage2";
@@ -83,8 +83,8 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> edit(@PathVariable("uid") String uid, User newUser, Model model) {
 
-		newUser.setUpwMac(uid);
-		newUser.setUpwMac(newUser.getUpwMac());
+		newUser.setPwMac(uid);
+		newUser.setPwMac(newUser.getPwMac());
 		newUser.setEmailMac(newUser.getEmailMac());
 		newUser.setCityMac(newUser.getCityMac());
 		newUser.setTownMac(newUser.getTownMac());

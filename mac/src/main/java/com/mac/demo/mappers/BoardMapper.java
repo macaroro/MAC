@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.mac.demo.model.Board;
 
+
 @Mapper
 public interface BoardMapper {
 
@@ -19,6 +20,11 @@ public interface BoardMapper {
 	List<Board> getList(); //자유게시판
 	List<Board> getAdsList(); //광고게시판
 	List<Board> getNoticeList(); //공지게시판
+	
+	
+	//myPage//수정 한부분
+	List<Board> getMypageInFreeBoard(String nickNameMac);
+	List<Board> getMypageInAdsBoard(String nickNameMac);
 	
 
 }

@@ -87,7 +87,7 @@ function logout() {
 			</div>
 			<div th:if="${uidMac !=null}">
 			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
-			 <a th:href="'/user/detail/'+ ${uidMac}"> <strong>마이페이지</strong></a>
+			 <a th:href="'/home/myPage/'+${nickNameMac}"> <strong>마이페이지</strong></a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"
@@ -173,4 +173,4 @@ function logout() {
 		</div>
 	</footer>
 </body>
-</html>>
+</html>

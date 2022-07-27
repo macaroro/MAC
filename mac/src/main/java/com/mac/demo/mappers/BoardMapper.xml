@@ -4,33 +4,42 @@
 
 <mapper namespace="com.mac.demo.mappers.BoardMapper">
 
-	<insert id="add" parameterType="com.mac.demo.model.User">
-		INSERT INTO board(numMac,titleMac,contentsMac,nicknameMac,wdateMac,pcodeMac,typeMac) 
-		VALUES(BOARD_NUM.NEXTVAL,#{titleMac},#{contentsMac},#{nicknameMac},SYSDATE,#{pcodeMac},typeMac)
+	<insert id="save" parameterType="com.mac.demo.model.Board">
+		INSERT INTO free_board(NUMMAC,NICKNAMEMAC,TITLEMAC,CONTENTSMAC,WDATEMAC,PCODEMAC)
+		VALUES(BOARD_NUM.NEXTVAL,#{nickNameMac},#{titleMac},#{contentsMac},SYSDATE,#{pcodeMac})
 	</insert>
 
 	<select id="getList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE typeMac not in(ads,notice)
+		SELECT * FROM free_board
 	</select>
 	
 	<select id="getAdsList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE typeMac=ads
+		SELECT * FROM ads_board
 	</select>
 	
 	<select id="getNoticeList" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE typeMac=notice
+		SELECT * FROM notice_board
 	</select>
 	
 	<select id="getDetail" resultType="com.mac.demo.model.Board">
-		SELECT * FROM board WHERE numMac=#{numMac}
+		SELECT * FROM free_board WHERE NUMMAC=#{numMac}
 	</select>
 
 	<update id="edit" parameterType="com.mac.demo.model.Board">
-		UPDATE board SET titleMac=#{titleMac}, contentsMac=#{contentsMac} WHERE numMac=#{numMac}
+		UPDATE free_board SET title=#{title}, contents=#{contents} WHERE num=#{num}
 	</update>
 	
 	<delete id="delete" parameterType="com.mac.demo.model.Board">
-		DELETE FROM board WHERE numMac=#{numMac}
+		DELETE FROM free_board WHERE NUMMAC=#{numMac}
 	</delete>
+	
+	
+	<!-- 추가한 부분 닉네임으로 각각의 게시판의 게시물 가져오기 -->
+	<select id="getMypageInFreeBoard" resultType="com.mac.demo.model.Board" parameterType="String">
+		SELECT * FROM free_board WHERE nickNameMac=#{nickNameMac}
+	</select>
+	<select id="getMypageInAdsBoard" resultType="com.mac.demo.model.Board" parameterType="String">
+		SELECT * FROM ads_board WHERE nickNameMac=#{nickNameMac}
+	</select>
 
 </mapper>

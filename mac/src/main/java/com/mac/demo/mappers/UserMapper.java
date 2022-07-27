@@ -18,8 +18,12 @@ public interface UserMapper {
 //	관리자사용권한
 	List<User> getList(User user); //모든 유저리스트 확인
 	
-	String getId(String uid);
 	
 	
 	
+	String getId(String idMac,String pwMac);//건든부분
+	String getNickNameMac(String idMac);//건든부분
 }
+	
+	
+	
