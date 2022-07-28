@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.server.PathParam;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,86 +14,75 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mac.demo.mappers.UserMapper;
-import com.mac.demo.model.Board;
 import com.mac.demo.model.User;
+import com.mac.demo.service.UserService;
 
-@RequestMapping("/user")
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	
+	//유저 맵퍼
 	@Autowired
-	private UserMapper dao;
+	private UserService svc;
 
 //	계정추가폼
-	@GetMapping("/add")
-	public String add() {
-		
-		return "user/addForm";
+	@GetMapping("/addForm")
+	public String addForm(Model model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		return "thymeleaf/User/addForm";
 	}
 	
 //	계정추가
-	@PostMapping
+	@PostMapping("/add")
 	@ResponseBody
 	public Map<String,Object> add(User user) {
-		
-		Map<String,Object> map=new HashMap<String,Object>();
-		
-		boolean add=dao.add(user)>0;
-		map.put("add", add);
-		
+		Map<String, Object> map = new HashMap<>();
+		boolean result = svc.add(user);
+		map.put("result", result);
 		return map;
 	}
 	
+//	계정리스트
+//	@GetMapping("/list")
+//	public String list(Model model) {
+//		List<User> list = svc.getList();
+//		model.addAttribute("list", list);	
+//		return "thymeleaf/mac/User/userlist";
+//	}
+	
 //	계정 삭제
-	@PostMapping("/delete{uid}")
+	@PostMapping("/delete")
 	@ResponseBody
-	public Map<String,Object> delete(@PathVariable("uid") String uid, Model model) {
+	public Map<String,Object> delete(@PathVariable("uid")String uid, HttpSession session ,Model model) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		boolean deleted = dao.delete(uid);
-		model.addAttribute("board", dao.delete(uid));
-		return map;
+		return null;
 	}
 	
 //	마이페이지
 	@GetMapping("/detail/{uid}")
 	public String mypage(@PathVariable("uid") String uid, Model model) {
 		
-		User user = new User();
-		user.setIdMac(uid);
-		model.addAttribute("user", dao.getMypage(uid));
-		return "user/mypage";
+		return "thymeleaf/home/myPage";
 	}
 	
 //  유저 업데이트폼
 	@GetMapping("/update/{uid}")
 	public String update(@PathVariable("uid") String uid, Model model) {
 
-		User user = new User();
-		user.setIdMac(uid);
-		model.addAttribute("board", dao.edit(user));
 		
-		return "/user/mypage2";
+		return "thymeleaf/mac/mypage2";
 	}
 //  유저 정보 수정
 	@GetMapping("/edit/{num}")
 	@ResponseBody
 	public Map<String, Object> edit(@PathVariable("uid") String uid, User newUser, Model model) {
 
-		newUser.setPwMac(uid);
-		newUser.setPwMac(newUser.getPwMac());
-		newUser.setEmailMac(newUser.getEmailMac());
-		newUser.setCityMac(newUser.getCityMac());
-		newUser.setTownMac(newUser.getTownMac());
-		newUser.setVillageMac(newUser.getVillageMac());
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		boolean updated = dao.edit(newUser)>0;
-		map.put("updated", updated);
-		return map;
+		return null;
 	}
 }
+	
+	

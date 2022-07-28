@@ -129,14 +129,13 @@ a {
 			</a>
 		</div>
 		<div>
-			<div th:if="${user==null}">
-			<a id="login" href="/login/loginForm"> <strong>로그인</strong></a>/
-			<a id="add" href="/user/add"> <strong>회원가입</strong></a>
-			
+			<div th:if="${idMac==null}">
+			<a href="/login/loginForm"> <strong>로그인</strong></a>
+			<a href="/user/addForm"> <strong>회원가입</strong></a>
 			</div>
-			<div th:if="${user !=null}">
+			<div th:if="${idMac !=null}">
 			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
-			 <a th:href="'/user/detail/'+ ${user.uidMac}"> <strong>마이페이지</strong></a>
+			 <a th:href="'/home/myPage/'+${nickNameMac}"> <strong>마이페이지</strong></a>
 			</div>
 		</div>
 		<div>
@@ -188,12 +187,12 @@ a {
 		</div>
 		<form id="loginForm" method="post" action="/login/loginForm" > <!--onsubmit="return login();"-->
 			<div>
-				<label for="uid">아이디</label><input type="text" id="uid" name="uid"
+				<label for="idMac">아이디</label><input type="text" id="idMac" name="idMac"
 					placeholder="아이디">
 			</div>
 			<div>
-				<label for="upw">암 호</label><input type="password" id="upw"
-					name="upw" placeholder="비밀번호">
+				<label for="pwMac">암 호</label><input type="password" id="pwMac"
+					name="pwMac" placeholder="비밀번호">
 			</div>
 			<div>
 				<button type="reset">취소</button>
@@ -219,7 +218,3 @@ a {
 	</footer>
 </body>
 </html>
-
-
-
-

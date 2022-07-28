@@ -10,6 +10,7 @@ public class Board {
 	private java.sql.Date wdateMac; //작성일
 	private int pcodeMac; //부모글pcode
 	private String typeMac; //속성(업종등)
+	private String idMac;
 	public int getNumMac() {
 		return numMac;
 	}
@@ -51,6 +52,12 @@ public class Board {
 	}
 	public void setTypeMac(String typeMac) {
 		this.typeMac = typeMac;
+	}
+	public String getIdMac() {
+		return idMac;
+	}
+	public void setIdMac(String idMac) {
+		this.idMac = idMac;
 	}
 	
 

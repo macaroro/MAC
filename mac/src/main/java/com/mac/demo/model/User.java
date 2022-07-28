@@ -5,28 +5,37 @@ import java.sql.Date;
 public class User {
 
 	
-	private String nameMac; //이름
-	private Date birthMac; //생년월일
-	private String idMac; //아이디
-	private String pwMac;  //비밀번호
-	private int phoneNumMac;  //전화번호
-	private String nickNameMac; //닉네임
-	private String genderMac; //성별
-	private String cityMac; //시
-	private String townMac; //구
-	private String villageMac; //동
-	private String emailMac; //이메일
-	private String managerMac; //관리자권환 유무
+	private int numMac;
+	private String nameMac;
+	private java.sql.Date birthMac;
+	private String idMac;
+	private String pwMac;
+	private int phoneNumMac;
+	private String emailMac;
+	private String nickNameMac;
+	private String genderMac;
+	private String cityMac;
+	private String townMac;
+	private String villageMac;
+	private int managerMac;
+	
+	
+	public int getNumMac() {
+		return numMac;
+	}
+	public void setNumMac(int numMac) {
+		this.numMac = numMac;
+	}
 	public String getNameMac() {
 		return nameMac;
 	}
 	public void setNameMac(String nameMac) {
 		this.nameMac = nameMac;
 	}
-	public Date getBirthMac() {
+	public java.sql.Date getBirthMac() {
 		return birthMac;
 	}
-	public void setBirthMac(Date birthMac) {
+	public void setBirthMac(java.sql.Date birthMac) {
 		this.birthMac = birthMac;
 	}
 	public String getIdMac() {
@@ -46,6 +55,12 @@ public class User {
 	}
 	public void setPhoneNumMac(int phoneNumMac) {
 		this.phoneNumMac = phoneNumMac;
+	}
+	public String getEmailMac() {
+		return emailMac;
+	}
+	public void setEmailMac(String emailMac) {
+		this.emailMac = emailMac;
 	}
 	public String getNickNameMac() {
 		return nickNameMac;
@@ -77,19 +92,12 @@ public class User {
 	public void setVillageMac(String villageMac) {
 		this.villageMac = villageMac;
 	}
-	public String getEmailMac() {
-		return emailMac;
-	}
-	public void setEmailMac(String emailMac) {
-		this.emailMac = emailMac;
-	}
-	public String getManagerMac() {
+	public int getManagerMac() {
 		return managerMac;
 	}
-	public void setManagerMac(String managerMac) {
+	public void setManagerMac(int managerMac) {
 		this.managerMac = managerMac;
 	}
-	
 	
 	
 	

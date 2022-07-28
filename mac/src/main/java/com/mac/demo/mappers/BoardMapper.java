@@ -13,7 +13,7 @@ public interface BoardMapper {
 //	게시글CRUD
 	int save(Board board); //게시글 저장
 	int edit(Board board); //게시글 삭제
-	boolean delete(int num); //게시글 삭제
+	int delete(int num); //게시글 삭제
 	Board getDetail(int num); //게시글 상세보기
 
 //게시글 목록
@@ -22,9 +22,9 @@ public interface BoardMapper {
 	List<Board> getNoticeList(); //공지게시판
 	
 	
-	//myPage//수정 한부분
-	List<Board> getMypageInFreeBoard(String nickNameMac);
-	List<Board> getMypageInAdsBoard(String nickNameMac);
+	//myPage
+	List<Board> getMypageInFreeBoard(String idMac);
+	List<Board> getMypageInAdsBoard(String idMac);
 	
 
 }

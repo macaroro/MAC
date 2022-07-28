@@ -36,14 +36,14 @@ public class LoginController {
 	
 //	세션에 uid저장및 db 확인
 	@PostMapping("/loginForm")
-	public String login(@RequestParam("uid")String uidMac, @RequestParam("upw")String pwMac, HttpSession session,Model model){
+	public String login(@RequestParam("idMac")String idMac, @RequestParam("pwMac")String pwMac, HttpSession session,Model model){
 		
-	     String id = dao.getId(uidMac,pwMac);//dao부분은 서비스로 넘겨주세요
-		if(uidMac.equals(id)) {//dao.getId(uidMac,pwMac).equals(uidMac)
-			session.setAttribute("uidMac", uidMac);
-			String uid = session.getAttribute("uidMac").toString();
-			model.addAttribute("uidMac",uid);
-			model.addAttribute("nickNameMac",dao.getNickNameMac(uidMac));//dao부분은 서비스로 넘겨주세요
+	     String id = dao.getId(idMac,pwMac);//dao부분은 서비스로 넘겨주세요
+		if(idMac.equals(id)) {//dao.getId(uidMac,pwMac).equals(uidMac)
+			session.setAttribute("idMac", idMac);
+			String uid = session.getAttribute("idMac").toString();
+			model.addAttribute("idMac",uid);
+			model.addAttribute("nickNameMac",dao.getNickNameMac(idMac));//dao부분은 서비스로 넘겨주세요
 			model.addAttribute("msg",uid+"님 환영합니다");
 		
 			return "thymeleaf/home/home";

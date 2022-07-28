@@ -4,7 +4,10 @@
 
 <mapper namespace="com.mac.demo.mappers.UserMapper">
 
-<insert parameterType="com.mac.demo.model.User" id="add">INSERT INTO user_tb(nameMac,birthMac,uidMac,upwMac,phoneNumMac,emailMac,nickNameMac,genderMac,cityMac,townMac,villageMac,managerMac)VALUES(#{nameMac},#{birthMac},#{uidMac},#{upwMac},#{phoneNumMac},#{emailMac},#{nickNameMac},#{genderMac},#{emailMac},#{cityMac},#{townMac},#{villageMac},#{managerMac}) </insert>
+<insert id="add" parameterType="com.mac.demo.model.User">
+		INSERT INTO USER_TB(
+		nummac, idmac, pwmac, nicknamemac, emailmac, gendermac, birthmac, phonenummac, citymac, townmac, villagemac, managermac, namemac) VALUES(#{numMac},#{idMac},#{pwMac},#{nickNameMac},#{emailMac},#{genderMac},#{birthMac},#{phoneNumMac},#{cityMac},#{townMac},#{villageMac},#{managerMac},#{nameMac})
+	</insert>
 
 <select id="getList" resultType="com.mac.demo.model.User">SELECT * FROM user_tb </select>
 
@@ -15,10 +18,10 @@
 <delete parameterType="com.mac.demo.model.User" id="delete">DELETE FROM user_tb WHERE idMac=#{idMac} </delete>
 
 
-<!-- 여기서 부터 수정한 부분(로그인 확인, nickaname으로 인물정보 가져오기 -->
+
 <select parameterType="String" id="getId" resultType="String">SELECT idMac FROM user_tb WHERE idMac=#{idMac} AND pwMac=#{pwMac} </select><!-- 건든부분 -->
 
 <select parameterType="String" id="getNickNameMac" resultType="String">SELECT nickNameMac FROM user_tb WHERE idMac=#{idMac}</select><!-- 건든부분 -->
-
-<select id="getMypage" resultType="com.mac.demo.model.User">SELECT * FROM user_tb WHERE nickNameMac=#{nickNameMac} </select>
+<!-- 정보를 닉네임으로가 아닌 아이디로 가져오기 -->
+<select id="getMypage" resultType="com.mac.demo.model.User">SELECT * FROM user_tb WHERE idMac=#{idMac} </select>
 </mapper>

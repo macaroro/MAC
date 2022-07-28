@@ -81,13 +81,13 @@ function logout() {
 						<circle cx="12" cy="13" r="4" /></svg> <strong>상권현황제공 창업커뮤니티</strong>
 				</a>
 			</div>
-			<div th:if="${uidMac==null}">
+			<div th:if="${idMac==null}">
 			<a href="/login/loginForm"> <strong>로그인</strong></a>
-			<a href="/user/add"> <strong>회원가입</strong></a>
+			<a href="/user/addForm"> <strong>회원가입</strong></a>
 			</div>
-			<div th:if="${uidMac !=null}">
+			<div th:if="${idMac !=null}">
 			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
-			 <a th:href="'/home/myPage/'+${nickNameMac}"> <strong>마이페이지</strong></a>
+			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"
@@ -105,9 +105,9 @@ function logout() {
 						<h4 class="text-white">커뮤니티</h4>
 						<!--                     <p class="text-muted">공지사항</p> -->
 						<ul class="list-unstyled">
-							<li><a href="/board/main" class="text-white">커뮤니티 메인화면</a></li>
+							<li><a href=/board/main class="text-white">커뮤니티 메인화면</a></li>
 							<li><a href="/board/notice" class="text-white">공지사항</a></li>
-							<li><a href="/board/list" class="text-white">자유게시판</a></li>
+							<li><a href="/board/free" class="text-white">자유게시판</a></li>
 							<li><a href="/board/ads" class="text-white">광고게시판</a></li>
 						</ul>
 					</div>

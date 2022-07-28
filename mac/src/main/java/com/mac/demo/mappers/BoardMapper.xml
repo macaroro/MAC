@@ -3,11 +3,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mac.demo.mappers.BoardMapper">
-
+<!--  
 	<insert id="save" parameterType="com.mac.demo.model.Board">
 		INSERT INTO free_board(NUMMAC,NICKNAMEMAC,TITLEMAC,CONTENTSMAC,WDATEMAC,PCODEMAC)
 		VALUES(BOARD_NUM.NEXTVAL,#{nickNameMac},#{titleMac},#{contentsMac},SYSDATE,#{pcodeMac})
 	</insert>
+-->
+
+<!-- 게시판 작성후 바로 상세보기로 가기위한 insert 하지만 이렇게 하기위해선 numMac가 pk필요 -->
+<insert id="save"
+        parameterType="com.mac.demo.model.Board" 
+        useGeneratedKeys="true" 
+       keyColumn="NUMMAC" keyProperty="numMac">
+
+   INSERT INTO free_board(NUMMAC,NICKNAMEMAC,TITLEMAC,CONTENTSMAC,WDATEMAC,PCODEMAC,IDMAC)
+		VALUES(BOARD_NUM.NEXTVAL,#{nickNameMac},#{titleMac},#{contentsMac},SYSDATE,#{pcodeMac},#{idMac})
+
+</insert>
 
 	<select id="getList" resultType="com.mac.demo.model.Board">
 		SELECT * FROM free_board
@@ -33,13 +45,12 @@
 		DELETE FROM free_board WHERE NUMMAC=#{numMac}
 	</delete>
 	
-	
-	<!-- 추가한 부분 닉네임으로 각각의 게시판의 게시물 가져오기 -->
+	<!-- 닉네임에서 id로 가져오기 -->
 	<select id="getMypageInFreeBoard" resultType="com.mac.demo.model.Board" parameterType="String">
-		SELECT * FROM free_board WHERE nickNameMac=#{nickNameMac}
+		SELECT * FROM free_board WHERE idMac=#{idMac}
 	</select>
 	<select id="getMypageInAdsBoard" resultType="com.mac.demo.model.Board" parameterType="String">
-		SELECT * FROM ads_board WHERE nickNameMac=#{nickNameMac}
+		SELECT * FROM ads_board WHERE idMac=#{idMac}
 	</select>
 
 </mapper>

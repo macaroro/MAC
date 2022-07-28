@@ -44,13 +44,13 @@ public class HomeController {
 		return "thymeleaf/home/siteIntroduction";
 	}
 	
-	@GetMapping("/myPage/{nickNameMac}")
-	public String myPage(@PathVariable("nickNameMac") String nickNameMac, Model model) {
+	@GetMapping("/myPage/{idMac}")
+	public String myPage(@PathVariable("idMac") String idMac, Model model) {
 
-		model.addAttribute("user",svc.getMyPageInUser(nickNameMac));
-		List<Board> freeBoard = svc.getMyPageInFreeBoard(nickNameMac);
+		model.addAttribute("user",svc.getMyPageInUser(idMac));
+		List<Board> freeBoard = svc.getMyPageInFreeBoard(idMac);
 		model.addAttribute("freeBoard", freeBoard);
-		List<Board> adsBoard = svc.getMyPageInAdsBoard(nickNameMac);
+		List<Board> adsBoard = svc.getMyPageInAdsBoard(idMac);
 		model.addAttribute("adsBoard", adsBoard);
 		return "thymeleaf/home/myPage";
 	}
