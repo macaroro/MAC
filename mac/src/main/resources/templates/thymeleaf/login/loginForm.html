@@ -75,27 +75,8 @@ a {
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-	function login() {
-		var serData = $('#loginForm').serialize();
-		$.ajax({
-			url : '/login/loginForm',
-			method : 'post',
-			cache : false,
-			data : serData,
-			dataType : 'json',
-			success : function(res) {
-				alert(res.login ? '로그인 성공' : '로그인 실패');
-				if(res.login==true){
-				location.href="/home"
-				
-				}
-			},
-			error : function(xhr, status, err) {
-				alert(err);
-			}
-		});
-		return false;
-	}
+var msg = '[[${msg}]]';
+if(msg)alert(msg);
 
 	function logout() {
 		if (!confirm('정말로 로그아웃하시겠어요?'))
@@ -134,8 +115,8 @@ a {
 			<a href="/user/addForm"> <strong>회원가입</strong></a>
 			</div>
 			<div th:if="${idMac !=null}">
-			 <a href="javascript:logout();"> <strong>로그아웃</strong></a>
-			 <a th:href="'/home/myPage/'+${nickNameMac}"> <strong>마이페이지</strong></a>
+			 <a href="javascript:logout();"> <strong>로그아웃|</strong></a>
+			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
 			</div>
 		</div>
 		<div>

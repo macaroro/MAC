@@ -38,7 +38,9 @@ public class BoardController {
 	
 //	커뮤니티메인화면
 	@GetMapping("/main")
-	public String main() {
+	public String main(Model model,HttpSession session) {
+		String id =session.getAttribute("idMac").toString();//세션을 가져옴
+		model.addAttribute("idMac", id);
 		
 		return "thymeleaf/board/boardMain";
 	}
@@ -90,7 +92,7 @@ public class BoardController {
 //	자유게시판
 //	page 구현 필요
 	@GetMapping("/free/list")
-	public String getList(Model model) {
+	public String getList(Model model,HttpSession session) {
 
 //		PageHelper.startPage(i, dao.getList().size()/3);
 //		PageInfo<Board> pageInfo = new PageInfo<>(dao.getList());
@@ -98,15 +100,18 @@ public class BoardController {
 
 //		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("list", list);
-		
+		String id =session.getAttribute("idMac").toString();//세션을 가져옴
+		model.addAttribute("idMac", id);
 		return "thymeleaf/board/free_boardList";
 	}
 	
 //  게시글 보기
 	@GetMapping("/detail/{num}")
-	public String getDetail(@PathVariable("num") int num, Model model) {
+	public String getDetail(@PathVariable("num") int num, Model model,HttpSession session) {
 		model.addAttribute("num", num);
 		model.addAttribute("board", dao.getDetail(num));
+		String id =session.getAttribute("idMac").toString();//세션을 가져옴
+		model.addAttribute("idMac", id);
 		return "thymeleaf/board/free_board_detail";
 	}
 	

@@ -44,9 +44,7 @@ public class LoginController {
 			String uid = session.getAttribute("idMac").toString();
 			model.addAttribute("idMac",uid);
 			model.addAttribute("nickNameMac",dao.getNickNameMac(idMac));//dao부분은 서비스로 넘겨주세요
-			model.addAttribute("msg",uid+"님 환영합니다");
-		
-			return "thymeleaf/home/home";
+		    return "thymeleaf/home/home";
 		}else if(id==null) {
 			model.addAttribute("msg","잘못된 아이디나 비밀번호 입니다");
 			
@@ -68,5 +66,7 @@ public class LoginController {
 		map.put("logout", true);
 		return map;
 	}
+	
+	
 
 }

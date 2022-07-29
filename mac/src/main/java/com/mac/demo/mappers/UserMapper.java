@@ -24,6 +24,8 @@ public interface UserMapper {
 	User getMypage(String idMac); //마이페이지(계정상세보기)
 	String getId(String idMac,String pwMac);//건든부분
 	String getNickNameMac(String idMac);//건든부분
+	
+	
 }
 	
 	
