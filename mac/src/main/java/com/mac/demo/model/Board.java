@@ -1,6 +1,7 @@
 package com.mac.demo.model;
 
 import java.sql.Date;
+
 public class Board {
 
 	private int numMac; //번호
@@ -11,6 +12,8 @@ public class Board {
 	private int pcodeMac; //부모글pcode
 	private String typeMac; //속성(업종등)
 	private String idMac;
+	
+	
 	public int getNumMac() {
 		return numMac;
 	}

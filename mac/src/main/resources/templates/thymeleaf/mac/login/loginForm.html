@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -43,7 +44,7 @@ main>h3 {
 
 label {
 	display: inline-block;
-	width: 3em;
+	width: 4em;
 	text-align: right;
 	margin-right: 1em;
 }
@@ -75,8 +76,29 @@ a {
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-var msg = '[[${msg}]]';
-if(msg)alert(msg);
+	var msg='[[${msg}]]';
+	if(msg)alert(msg);
+	function login() {
+		var serData = $('#loginForm').serialize();
+		$.ajax({
+			url : '/login/loginForm',
+			method : 'post',
+			cache : false,
+			data : serData,
+			dataType : 'json',
+			success : function(res) {
+				alert(res.login ? '로그인 성공' : '로그인 실패');
+				if (res.login == true) {
+					location.href = "/home"
+
+				}
+			},
+			error : function(xhr, status, err) {
+				alert(err);
+			}
+		});
+		return false;
+	}
 
 	function logout() {
 		if (!confirm('정말로 로그아웃하시겠어요?'))
@@ -87,7 +109,7 @@ if(msg)alert(msg);
 			cache : false,
 			dataType : 'json',
 			success : function(res) {
-				alert(res.logout==true? '로그아웃 성공' : '로그아웃 실패');
+				alert(res.logout == true ? '로그아웃 성공' : '로그아웃 실패');
 			},
 			error : function(xhr, status, err) {
 				alert(err);
@@ -99,8 +121,8 @@ if(msg)alert(msg);
 <body>
 	<div class="navbar navbar-dark bg-dark shadow-sm">
 		<div class="container">
-			<a href="/home" class="navbar-brand d-flex align-items-center"> 
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+			<a href="/home" class="navbar-brand d-flex align-items-center"> <svg
+					xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 					fill="none" stroke="currentColor" stroke-linecap="round"
 					stroke-linejoin="round" stroke-width="2" aria-hidden="true"
 					class="me-2" viewBox="0 0 24 24">
@@ -163,26 +185,31 @@ if(msg)alert(msg);
 	<main>
 		<h3>로그인</h3>
 		<div class="link_user">
-			<a href="/user/add">회원등록</a> | <a href="">아이디/암호 찾기</a> | <a
+			<a href="/user/addForm">회원등록</a> | <a href="/login/findId">아이디/</a><a href="/login/findPassword">암호 찾기</a> | <a
 				href="javascript:logout();">로그아웃</a>
 		</div>
-		<form id="loginForm" method="post" action="/login/loginForm" > <!--onsubmit="return login();"-->
-			<div>
-				<label for="idMac">아이디</label><input type="text" id="idMac" name="idMac"
-					placeholder="아이디">
-			</div>
-			<div>
-				<label for="pwMac">암 호</label><input type="password" id="pwMac"
-					name="pwMac" placeholder="비밀번호">
-			</div>
-			<div>
-				<button type="reset">취소</button>
-				<button type="submit">로그인</button>
-			</div>
+		<form class="form-signin" th:action="@{/login/loginForm}"
+			method="post">
+			<!-- 요청 보내기-->
+
+			<div th:if="${param.error}" class="alert alert-danger" role="alert">
+				Invalid username and password</div>
+
+			<div th:if="${param.logout}" class="alert alert-primary" role="alert">
+				You have been logged out</div>
+
+			<label for="idMac" class="sr-only">아이디 &nbsp</label> 
+			<input type="text" id="idMac" name="idMac" class="form-control" 
+			 	placeholder="아이디" required autofocus> 
+		    <label for="pwMac" class="sr-only">비밀번호</label>
+			<input type="password" id="pwMac" name="pwMac" class="form-control"
+				placeholder="비밀번호" required autofocus>
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+				in</button>
+
+			<p class="mt-5 mb-3 text-muted">&copy; 2022-07-26</p>
 		</form>
-		<div class="link_user">
-			[<a href="/user/update">회원정보 변경</a>]
-		</div>
 	</main>
 	<footer class="text-muted py-5">
 		<div class="container">

@@ -21,8 +21,22 @@
 
 </insert>
 
+<insert id="commentsave"
+        parameterType="com.mac.demo.model.Comment" 
+        useGeneratedKeys="true" 
+       keyColumn="PCODEMAC" keyProperty="pcodeMac">
+
+   INSERT INTO comment_board(PCODEMAC,IDMAC,COMMENTMAC,WDATEMAC)
+		VALUES(#{pcodeMac},#{idMac},#{commentMac},SYSDATE)
+
+</insert>
+
 	<select id="getList" resultType="com.mac.demo.model.Board">
 		SELECT * FROM free_board
+	</select>
+	
+	<select id="getCommentList" resultType="com.mac.demo.model.Comment">
+		SELECT * FROM comment_board WHERE PCODEMAC=#{pcodeMac}
 	</select>
 	
 	<select id="getAdsList" resultType="com.mac.demo.model.Board">
@@ -38,7 +52,7 @@
 	</select>
 
 	<update id="edit" parameterType="com.mac.demo.model.Board">
-		UPDATE free_board SET title=#{title}, contents=#{contents} WHERE num=#{num}
+		UPDATE free_board SET TITLEMAC=#{titleMac}, CONTENTSMAC=#{contentsMac} WHERE NUMMAC=#{numMac}
 	</update>
 	
 	<delete id="delete" parameterType="com.mac.demo.model.Board">

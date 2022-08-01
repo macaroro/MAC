@@ -22,7 +22,7 @@ public class HomeService {
 	public User getMyPageInUser(String nickNameMac) {
 		
 	 
-	    return uao.getMypage(nickNameMac);
+	    return uao.getOne(nickNameMac);
 	    
 		
 	}

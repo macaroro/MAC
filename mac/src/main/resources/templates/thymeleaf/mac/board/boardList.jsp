@@ -1,5 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="utf-8">
 <title>자유게시판</title>
@@ -11,8 +14,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-	crossorigin="anonymous">
-</script>
+	crossorigin="anonymous"></script>
 <style type="text/css">
 #login {
 	font-size: 4px;
@@ -63,14 +65,10 @@ tr:hover {
 						<circle cx="12" cy="13" r="4" /></svg> <strong>상권현황제공 창업커뮤니티</strong>
 				</a>
 			</div>
-		<div th:if="${idMac==null}">
-			<a href="/login/loginForm"> <strong>로그인</strong></a>
-			<a href="/user/addForm"> <strong>회원가입</strong></a>
-			</div>
-			<div th:if="${idMac !=null}">
-			<h5 th:text=" ${idMac}+'님 환영합니다'" th:style="'color:white'"></h5>
-			 <a href="javascript:logout();"> <strong>로그아웃|</strong></a>
-			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
+			<div>
+				<a id="login" href="/login/loginForm"> <strong>로그인</strong>
+				</a> <a id="add" href="/user/add"> <strong>회원가입</strong>
+				</a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"
@@ -143,11 +141,14 @@ tr:hover {
 				<th>작성자</th>
 				<th>작성일</th>
 			</tr>
-			<tr th:each="board : ${list}">
-				<td th:text="${board.numMac}"></td>
-				<td><a th:text="${board.titleMac}" th:href="@{'/board/detail/'+ ${board.numMac}}"></a></td>
-				<td th:text="${board.nickNameMac}"></td>
-				<td th:text="${board.wdateMac}">
+			<c:forEach var="b" items="${list}">
+				<tr>
+					<td>${b.num}</td>
+					<td>${b.title}</td>
+					<td>${b.author}</td>
+					<td>${b.wdate}</td>
+				</tr>
+			</c:forEach>
 		</table>
 		<form id="search_form" method="post" action="/mb/board/search">
 			<div>

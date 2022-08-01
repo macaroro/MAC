@@ -87,6 +87,9 @@ function logout() {
 			<h5 th:text=" ${idMac}+'님 환영합니다'" th:style="'color:white'"></h5>
 			 <a href="javascript:logout();"> <strong>로그아웃|</strong></a>
 			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
+			 <div th:if="${managerMac==1}">
+			  <a th:href="'/admin'"> <strong>관리자 페이지</strong></a>
+			 </div>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"

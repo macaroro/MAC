@@ -2,6 +2,8 @@ package com.mac.demo.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mac.demo.model.Board;
 import com.mac.demo.model.User;
 import com.mac.demo.service.HomeService;
+import com.mac.demo.service.LoginService;
 
 
 
@@ -22,26 +25,36 @@ public class HomeController {
 	
 	@Autowired 
 	private HomeService svc;
+	
+	@Autowired 
+	private LoginService service;
 
 //	홈화면
 	@GetMapping("")
-	public String home(Model model) {
+	public String home(Model model,HttpSession session) {
 		
-		return "thymeleaf/home/home";
+		if(session.getAttribute("idMac")!=null) {
+			String uid = session.getAttribute("idMac").toString();
+			model.addAttribute("idMac",uid);
+			model.addAttribute("managerMac", service.findManagerMac(uid));
+			return "thymeleaf/mac/home/home";
+		}
+		
+		return "thymeleaf/mac/home/home";
 	}
 	
 //	데이터 출처
 	@GetMapping("/dataSource")
 	public String dataSorce() {
 		
-		return "thymeleaf/home/dataSource";
+		return "thymeleaf/mac/home/dataSource";
 	}
 	
 //	사이트소개
 	@GetMapping("/siteIntroduction")
 	public String siteIntroduction() {
 		
-		return "thymeleaf/home/siteIntroduction";
+		return "thymeleaf/mac/home/siteIntroduction";
 	}
 	
 	@GetMapping("/myPage/{idMac}")
@@ -52,7 +65,7 @@ public class HomeController {
 		model.addAttribute("freeBoard", freeBoard);
 		List<Board> adsBoard = svc.getMyPageInAdsBoard(idMac);
 		model.addAttribute("adsBoard", adsBoard);
-		return "thymeleaf/home/myPage";
+		return "thymeleaf/mac/User/myPage";
 	}
 	
 	

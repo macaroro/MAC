@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mac.demo.mappers.LoginMapper">
+
+	<select parameterType="String" id="loginUser" resultType="String">
+		SELECT idMac FROM user_tb WHERE idMac=#{idMac} AND pwMac=#{pwMac}
+	</select>
+
+	<select parameterType="String" id="findId" resultType="String">
+		SELECT idMac FROM user_tb WHERE nameMac=#{nameMac} AND phoneNumMac=#{phoneNumMac}
+	</select>
+
+	<select parameterType="String" id="findPassword" resultType="String">
+		SELECT pwMac FROM user_tb WHERE idMac=#{idMac} AND nameMac=#{nameMac} AND phoneNumMac=#{phoneNumMac}
+	</select>
+	
+	
+	<!-- 추가 부분(매니저 번호) -->
+	<select parameterType="String" id="findManagerMac" resultType="Integer">
+		SELECT managerMac FROM user_tb WHERE idMac=#{idMac}
+	</select>
+</mapper> 

@@ -41,7 +41,7 @@ a:hover {
 	<header>
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container">
-				<a href="#" class="navbar-brand d-flex align-items-center"> <svg
+				<a href="/home" class="navbar-brand d-flex align-items-center"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 						fill="none" stroke="currentColor" stroke-linecap="round"
 						stroke-linejoin="round" stroke-width="2" aria-hidden="true"
@@ -51,7 +51,8 @@ a:hover {
 						<circle cx="12" cy="13" r="4" /></svg> <strong>상권현황제공 창업커뮤니티</strong>
 				</a>
 			</div>
-		<div th:if="${idMac==null}">
+			<div>
+					<div th:if="${idMac==null}">
 			<a href="/login/loginForm"> <strong>로그인</strong></a>
 			<a href="/user/addForm"> <strong>회원가입</strong></a>
 			</div>
@@ -59,6 +60,10 @@ a:hover {
 			<h5 th:text=" ${idMac}+'님 환영합니다'" th:style="'color:white'"></h5>
 			 <a href="javascript:logout();"> <strong>로그아웃|</strong></a>
 			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
+			 <div th:if="${managerMac==1}">
+			  <a th:href="'/home/adminPage/'+${idMac}"> <strong>관리자 페이지</strong></a>
+			 </div>
+			</div>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"
@@ -114,9 +119,9 @@ a:hover {
 			<div class="row py-lg-5">
 				<div id="board" class="col-lg-8 col-md-2">
 					<ul class="list-unstyled">
-						<li><a href="/board/notice" class="text-black">공지사항</a></li>
-						<li><a href="/board/list" class="text-black">자유게시판</a></li>
-						<li><a href="/board/ads" class="text-black">광고게시판</a></li>
+						<li><a href="/board/notice/list" class="text-black">공지사항</a></li>
+						<li><a href="/board/free/list" class="text-black">자유게시판</a></li>
+						<li><a href="/board/ads/list" class="text-black">광고게시판</a></li>
 						<li><a href="/board/input" class="text-black">글쓰기</a></li>
 					</ul>
 				</div>
