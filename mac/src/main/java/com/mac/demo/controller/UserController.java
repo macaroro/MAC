@@ -65,6 +65,7 @@ public class UserController {
 	@PostMapping("/deleted")
 	@ResponseBody
 	public Map<String,Object> deleted(User user, HttpSession session) {
+		System.out.println("111");
 		Map<String, Object> map = new HashMap<>();
 		String idMac = user.getIdMac();
 		boolean result = svc.deleted(idMac);

@@ -8,6 +8,24 @@
 <select id="findAllUser" resultType="com.mac.demo.model.User">
 		SELECT * FROM user_tb
 	</select>
+	<select id="findAllFreeBoard" resultType="com.mac.demo.model.Board">
+		SELECT * FROM free_board
+	</select>
+	<select id="findAllAdsBoard" resultType="com.mac.demo.model.Board">
+		SELECT * FROM ads_board
+	</select>
+	
+	<delete id="freeBordDeleted" parameterType="String">
+		DELETE FROM free_board WHERE idMac=#{idMac}
+	</delete>
+	
+	<delete id="adsBordDeleted" parameterType="String">
+		DELETE FROM ads_board WHERE idMac=#{idMac}
+	</delete>
+	
+	<delete id="UserDeleted" parameterType="String">
+		DELETE FROM user_tb WHERE idMac=#{idMac}
+	</delete>
 
 
 
