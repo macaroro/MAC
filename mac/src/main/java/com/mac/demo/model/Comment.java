@@ -9,6 +9,7 @@ public class Comment {
 	private String idMac;
 	private String commentMac;
 	private java.sql.Date wdateMac;
+	private int numMac;
 	
 	
 	public int getPcodeMac() {
@@ -34,6 +35,12 @@ public class Comment {
 	}
 	public void setWdateMac(java.sql.Date wdateMac) {
 		this.wdateMac = wdateMac;
+	}
+	public int getNumMac() {
+		return numMac;
+	}
+	public void setNumMac(int numMac) {
+		this.numMac = numMac;
 	}
 	
 }
