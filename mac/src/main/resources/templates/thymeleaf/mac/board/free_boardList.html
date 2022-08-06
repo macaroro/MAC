@@ -125,9 +125,9 @@ tr:hover {
 			<div class="row py-lg-5">
 				<div class="col-lg-8 col-md-2">
 					<ul class="list-unstyled">
-						<li><a href="/board/notice" class="text-black">공지사항</a></li>
-						<li><a href="/board/list" class="text-black">자유게시판</a></li>
-						<li><a href="/board/ads" class="text-black">광고게시판</a></li>
+						<li><a href="/board/notice/list" class="text-black">공지사항</a></li>
+						<li><a href="/board/free/list" class="text-black">자유게시판</a></li>
+						<li><a href="/board/ads/list" class="text-black">광고게시판</a></li>
 					</ul>
 				</div>
 			</div>
@@ -139,25 +139,39 @@ tr:hover {
 				<th>작성자</th>
 				<th>작성일</th>
 			</tr>
-			<tr th:each="board : ${list}">
+			<tr th:each="board : ${pageInfo.list}">
 				<td th:text="${board.numMac}"></td>
-				<td><a th:text="${board.titleMac}" th:href="@{'/board/detail/'+ ${board.numMac}}"></a></td>
+				<td><a th:text="${board.titleMac}" th:href="@{'/board/free/detail/'+ ${board.numMac}}"></a>
+				<span th:text="'	['+${board.countMac}+']'">
+				</td>
 				<td th:text="${board.nickNameMac}"></td>
 				<td th:text="${board.wdateMac}">
 		</table>
-		<form id="search_form" method="post" action="/mb/board/search">
+	<br>
+		<form id="search_form" method="get" action="/board/free/search?category=+${category}">
 			<div>
-				<label for="category">검색항목</label> <select name="category">
-					<option value="author">작성자</option>
-					<option value="title">글제목</option>
-					<option value="contents">글내용</option>
-				</select> <label for="keyword">검색어</label> <input type="text" name="keyword"
-					value="smith">
-			</div>
-			<div>
-				<button type="reset">취소</button>
+				&nbsp;&nbsp;
+				<label for="category">검색항목</label> 
+				<select name="category">
+					<option value="contents">글제목+내용</option>
+					<option value="nickname">작성자</option>
+				</select> 
+				<label for="keyword">검색어</label> <input type="text" name="keyword">
 				<button type="submit">검색</button>
+				<button type="reset">취소</button>
+				&nbsp;&nbsp;			
+				<button type="button"><a href="/board/free/input">글쓰기</a></button>
 			</div>
+			&nbsp;&nbsp;
+			<span th:each="i :${pageInfo.navigatepageNums}"> 
+				<span th:if="${i==pageInfo.pageNum}"> 
+					<span th:text="${i}">
+					</span>
+				</span> 
+				<span th:if="${i!=pageInfo.pageNum}"> 
+					[<a th:text='${i}' th:href="'/board/free/list?page='+(${i})"></a>]
+				</span>
+			</span>
 		</form>
 	</main>
 	<footer class="text-muted py-5">

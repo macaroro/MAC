@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,7 +29,7 @@ public class AdminConfig
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() 
     {
-       return (webSecurity) -> webSecurity.ignoring().antMatchers("/resources/**", "/ignore2");
+       return (webSecurity) -> webSecurity.ignoring().antMatchers("/resources/**", "/ignore2","/js/**");
     }
 
     @Bean
@@ -81,4 +82,6 @@ public class AdminConfig
             .authorities("ROLE_ADMIN");
        
     }
+    
+ 
 }

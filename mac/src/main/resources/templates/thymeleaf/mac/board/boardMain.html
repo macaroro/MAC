@@ -41,7 +41,7 @@ a:hover {
 	<header>
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container">
-				<a href="/home" class="navbar-brand d-flex align-items-center"> <svg
+				<a href="#" class="navbar-brand d-flex align-items-center"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 						fill="none" stroke="currentColor" stroke-linecap="round"
 						stroke-linejoin="round" stroke-width="2" aria-hidden="true"
@@ -52,18 +52,9 @@ a:hover {
 				</a>
 			</div>
 			<div>
-					<div th:if="${idMac==null}">
-			<a href="/login/loginForm"> <strong>로그인</strong></a>
-			<a href="/user/addForm"> <strong>회원가입</strong></a>
-			</div>
-			<div th:if="${idMac !=null}">
-			<h5 th:text=" ${idMac}+'님 환영합니다'" th:style="'color:white'"></h5>
-			 <a href="javascript:logout();"> <strong>로그아웃|</strong></a>
-			 <a th:href="'/home/myPage/'+${idMac}"> <strong>마이페이지</strong></a>
-			 <div th:if="${managerMac==1}">
-			  <a th:href="'/home/adminPage/'+${idMac}"> <strong>관리자 페이지</strong></a>
-			 </div>
-			</div>
+				<a id="login" href="/login/loginForm"> <strong>로그인</strong>
+				</a>/ <a id="add" href="/user/add"> <strong>회원가입</strong>
+				</a>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button"

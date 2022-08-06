@@ -23,6 +23,8 @@ public interface UserMapper {
 	//계정정보 수정
 	boolean updated(User user);
 	
+	//nickname 중복체크
+	User getOneNick(String nickNameMac);
 	
 	
 	

@@ -6,14 +6,13 @@ import com.mac.demo.model.User;
 
 @Mapper
 public interface LoginMapper {
-//	String loginUser(User user);
 
+//	로그인
 	String loginUser(String idMac, String pwMac);
 
-	String findId(String nameMac, String phoneNumMac);
+//	아이디찾기
+	String findId(String nameMac, String emailMac);
 
-	String findPassword(String idMac, String nameMac, String phoneNumMac);
-
-	//---매니저 번호 가져오기
-	int findManagerMac(String idMac);
+//	비밀번호찾기
+	String findPassword(String idMac, String nameMac, String emailMac);
 }

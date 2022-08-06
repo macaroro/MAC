@@ -55,7 +55,7 @@ function deleted(numMac) {
 </ul>
 
  <div th:if="${#lists.isEmpty(pageInfo.list)}">
-    <h2>자유게시판 글</h2>
+    <h2>광고 게시판</h2>
      <h3>글이 없습니다</h3>
    </div>
 <main th:unless="${#lists.isEmpty(pageInfo.list)}">
@@ -85,8 +85,31 @@ function deleted(numMac) {
 <td> <button th:onclick="javascript:deleted([[${ads.numMac}]])">추방</button></td>
 </tr>
 </table>
+<form id="search_form" method="post" action="/admin/adsSearch">
+			<div>
+				&nbsp;&nbsp;
+				<label for="category">검색항목</label> 
+				<select name="category">
+					<option value="contents">글제목+내용</option>
+					<option value="nickname">작성자</option>
+				</select> 
+				<label for="keyword">검색어</label> <input type="text" name="keyword">
+				<button type="submit">검색</button>
+				<button type="reset">취소</button>		
+			</div>
+			&nbsp;&nbsp;
+			<span th:each="i :${pageInfo.navigatepageNums}"> 
+				<span th:if="${i==pageInfo.pageNum}"> 
+					<span th:text="${i}">
+					</span>
+				</span> 
+				<span th:if="${i!=pageInfo.pageNum}"> 
+					[<a th:text='${i}' th:href="'/admin/allAdsBoard?page='+(${i})"></a>]
+				</span>
+			</span>
+		</form>
 
-
+<!--  
 <span th:each="i :${pageInfo.navigatepageNums}" >
 
 <span th:if="${i==pageInfo.pageNum}">
@@ -94,9 +117,9 @@ function deleted(numMac) {
 </span>
 
 <span th:if="${i!=pageInfo.pageNum}">
-[<a th:text='${i}' th:href="'/admin/allAdsBoard?page='+(${i})"></a>]
+[<a th:text='${i}' th:href="'/admin/allFreeBoard?page='+(${i})"></a>]
 </span>
-</span>
+</span>-->
 </main>
 </body>
 </html>

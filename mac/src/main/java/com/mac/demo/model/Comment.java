@@ -5,13 +5,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class Comment {
 	
+	private int numMac;
 	private int pcodeMac;
 	private String idMac;
+	private String nickNameMac;
 	private String commentMac;
 	private java.sql.Date wdateMac;
-	private int numMac;
 	
 	
+	
+	
+	public String getNickNameMac() {
+		return nickNameMac;
+	}
+	public void setNickNameMac(String nickNameMac) {
+		this.nickNameMac = nickNameMac;
+	}
+	public int getNumMac() {
+		return numMac;
+	}
+	public void setNumMac(int numMac) {
+		this.numMac = numMac;
+	}
 	public int getPcodeMac() {
 		return pcodeMac;
 	}
@@ -35,12 +50,6 @@ public class Comment {
 	}
 	public void setWdateMac(java.sql.Date wdateMac) {
 		this.wdateMac = wdateMac;
-	}
-	public int getNumMac() {
-		return numMac;
-	}
-	public void setNumMac(int numMac) {
-		this.numMac = numMac;
 	}
 	
 }

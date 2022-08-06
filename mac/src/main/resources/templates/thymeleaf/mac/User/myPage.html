@@ -37,22 +37,7 @@ function deleted() {
     <li class="list-group-item"  th:text="'생일'+${user.phoneNumMac}"></li>
     <li  class="list-group-item" th:text="'셩별:'+${user.genderMac}"></li>
     <li  class="list-group-item" th:text="'도시:'+${user.cityMac}"></li>
-
   </ul> 
-  
-  <div>
-<form id="del" th:object="${user}" onsubmit="return deleted();">
-<input type="hidden" name="idMac" th:value="*{idMac}">
-	<button type="submit">삭제</button>
-</form>
-</div>
-
-<div>
-<form id="update" th:object="${user}" action="/user/updateForm" >
-<input type="hidden" name="idMac" th:value="*{idMac}">
-	<button type="submit">수정</button>
-</form>
-</div>
   
   
     <div th:if="${#lists.isEmpty(freeBoard)}">
@@ -116,5 +101,18 @@ function deleted() {
    
    </div>
    
+<div>
+<form id="del" th:object="${user}" onsubmit="return deleted();">
+<input type="hidden" name="idMac" th:value="*{idMac}">
+	<button type="submit">삭제</button>
+</form>
+</div>
+
+<div>
+<form id="update" th:object="${user}" action="/user/updateForm" >
+<input type="hidden" name="idMac" th:value="*{idMac}">
+	<button type="submit">수정</button>
+</form>
+</div>
 </body>
 </html>

@@ -189,5 +189,45 @@ public class AdminController {
 			map.put("result", result);
 			return map;
 		}
+		
+		@PostMapping("/admin/freeSearch")
+		public String searchFree(@RequestParam(name="page", required = false,defaultValue = "1") int page,
+									@RequestParam(name="category", required = false) String category,
+									@RequestParam(name="keyword", required = false) String keyword,
+									Model model) {
+			
+			PageHelper.startPage(page, 3);
+			
+			PageInfo<Board> pageInfo = null;
+			if(category.equals("contents")) {
+				pageInfo = new PageInfo<>(svc.getFreeListByKeyword(keyword));
+			} else {
+				pageInfo = new PageInfo<>(svc.getFreeListByNickName(keyword));
+			}
+			
+			model.addAttribute("pageInfo",pageInfo);
+			
+			return "thymeleaf/mac/admin/allFreeBoard";
+		}
+		
+		@PostMapping("/admin/adsSearch")
+		public String searchComment(@RequestParam(name="page", required = false,defaultValue = "1") int page,
+									@RequestParam(name="category", required = false) String category,
+									@RequestParam(name="keyword", required = false) String keyword,
+									Model model) {
+			
+			PageHelper.startPage(page, 3);
+			
+			PageInfo<Board> pageInfo = null;
+			if(category.equals("contents")) {
+				pageInfo = new PageInfo<>(svc.getAdsListByKeyword(keyword));
+			} else {
+				pageInfo = new PageInfo<>(svc.getAdsListByNickName(keyword));
+			}
+			
+			model.addAttribute("pageInfo",pageInfo);
+			
+			return "thymeleaf/mac/admin/allAdsBoard";
+		}
 
 }
