@@ -64,10 +64,10 @@ public class AdminController {
 	public String allUser(Model model,@RequestParam(name="page", required = false,defaultValue ="1") int page) {
 		
 		//페이지를 설정하면 처음으로 뜰 화면을 기본1로 설정하여 startPage에 넣어준다
-	     PageHelper.startPage(page, 2);
+	     PageHelper.startPage(page, 3);
 			//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 			PageInfo<User> pageInfo = new PageInfo<>(svc.findAllUser());
-			List<User> list= pageInfo.getList();
+			
 			 model.addAttribute("pageInfo", pageInfo);
              return "thymeleaf/mac/admin/allUser";
 	}
@@ -79,7 +79,7 @@ public class AdminController {
 	     PageHelper.startPage(page, 2);
 			//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 			PageInfo<Board> pageInfo = new PageInfo<>(svc.findAllFreeBord());
-			List<Board> list= pageInfo.getList();
+		
 			 model.addAttribute("pageInfo", pageInfo);
 		return "thymeleaf/mac/admin/allFreeBoard";
 	}
@@ -91,7 +91,7 @@ public class AdminController {
 	     PageHelper.startPage(page, 2);
 			//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 			PageInfo<Board> pageInfo = new PageInfo<>(svc.findAllAdsBoard());
-			List<Board> list= pageInfo.getList();
+			
 			 model.addAttribute("pageInfo", pageInfo);
 		return "thymeleaf/mac/admin/allAdsBoard";
 	}
@@ -150,7 +150,7 @@ public class AdminController {
 	     PageHelper.startPage(page, 2);
 			//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 			PageInfo<Board> pageInfo = new PageInfo<>(svc.findAllNoticeBoard());
-			List<Board> list= pageInfo.getList();
+		
 			 model.addAttribute("pageInfo", pageInfo);
 		return "thymeleaf/mac/admin/allNoticeBoard";
 	}
@@ -168,15 +168,14 @@ public class AdminController {
 	
 	
 	//모든 광고게시판
-		@GetMapping("/admin/allCommentBoard")
+		@GetMapping("/admin/allComment")
 		public String allCommentBoard(Model model,@RequestParam(name="page", required = false,defaultValue ="1") int page) {
 			//페이지를 설정하면 처음으로 뜰 화면을 기본1로 설정하여 startPage에 넣어준다
 		     PageHelper.startPage(page, 2);
 				//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 				PageInfo<Comment> pageInfo = new PageInfo<>(svc.findAllCommentBoard());
-				List<Comment> list= pageInfo.getList();
 				 model.addAttribute("pageInfo", pageInfo);
-			return "thymeleaf/mac/admin/allCommentBoard";
+			return "thymeleaf/mac/admin/allComment";
 		}
 		
 //		계정 삭제

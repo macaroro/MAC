@@ -46,8 +46,8 @@ public class LoginController {
 		model.addAttribute("idMac",session.getAttribute("idMac").toString());
 		model.addAttribute("msg", session.getAttribute("idMac").toString()+"님 환영합니다");
 		
-		//return "thymeleaf/mac/home/home";
-		return "thymeleaf/bootstrap/home";
+		return "thymeleaf/mac/home/home";
+		//return "thymeleaf/bootstrap/home";
 		}else if(checkedId==null) {
 			model.addAttribute("msg","잘못된 아이디나 비밀번호 입니다");
 			

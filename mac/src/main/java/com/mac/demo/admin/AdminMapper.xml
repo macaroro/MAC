@@ -6,7 +6,7 @@
 
 
 <select id="findAllUser" resultType="com.mac.demo.model.User">
-		SELECT * FROM user_tb
+		SELECT nummac, idmac, pkg_crypto.decrypt(pwmac) pwMac, nicknamemac, emailmac, gendermac, birthmac, phonenummac, citymac, townmac, villagemac, namemac FROM USER_TB
 	</select>
 	<select id="findAllFreeBoard" resultType="com.mac.demo.model.Board">
 		SELECT * FROM free_board

@@ -202,6 +202,24 @@
         }
     });
 
-    
+        document.querySelector('#allUserDelete').onclick=
+function deleted() {
+	var numMac = document.getElementById('numMac');
+	if(!confirm('해당 계정 삭제하시겠어요?')) return;
+	$.ajax({
+		url:'/admin/userDeleted/'+numMac,
+		method:'get',
+		cache:false,
+		dataType:'json',
+		success:function(res){
+			alert(res.result ? '삭제 성공':'삭제 실패');
+			location.href="/admin/allUser";
+		},
+		error:function(xhr,status, err){
+			alert('에러:'+err);
+		}
+	});
+	return false;
+}
 })(jQuery);
 
