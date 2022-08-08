@@ -10,7 +10,7 @@
 	</insert>
 
 	<select id="getList" resultType="com.mac.demo.model.User">
-		SELECT nummac, idmac, pkg_crypto.decrypt(pwmac), nicknamemac, emailmac, gendermac, birthmac, phonenummac, citymac, townmac, villagemac, namemac FROM USER_TB
+		SELECT nummac, idmac, pkg_crypto.decrypt(pwmac) pwMac, nicknamemac, emailmac, gendermac, birthmac, phonenummac, citymac, townmac, villagemac, namemac FROM USER_TB
 	</select>
 	
 	<select id="getOne" resultType="com.mac.demo.model.User">

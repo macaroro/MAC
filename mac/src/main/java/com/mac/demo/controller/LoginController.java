@@ -61,7 +61,7 @@ public class LoginController {
 	@ResponseBody
 	public Map<String,Object> logout(HttpSession session, Model model) 
 	{	
-		System.out.println(session.getAttribute("idMac"));
+		System.out.println("11111");
 		
 		session.invalidate();
 		Map<String,Object> map = new HashMap<>();

@@ -29,6 +29,7 @@
 }
 
 
+
 /*** Button ***/
 .btn {
     transition: .5s;
@@ -274,4 +275,15 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+
+
+nav.navbar.navbar-expand.bg-ligth {
+    right: 100px;
+    position: relative;
+
+}
+div#nav {
+    background: lightblue;
 }

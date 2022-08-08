@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>게시판 글 입력폼</title>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -74,6 +75,9 @@ nav>a {
 			method : 'post',
 			cache : false,
 			data : $('#input_form').serialize(),
+			beforeSend:function(xhr){
+				xhr.setRequestHeader("[[${_csrf.headerName}]]","[[${_csrf.token}]]");
+			},
 			dataType : 'json',
 			success : function(res) {
 				

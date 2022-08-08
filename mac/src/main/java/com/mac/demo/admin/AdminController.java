@@ -79,7 +79,7 @@ public class AdminController {
 	     PageHelper.startPage(page, 2);
 			//startPage시작하는 페이지 넘버와 그 페이지에 얼마의 글이 들어갈지를 정한다.
 			PageInfo<Board> pageInfo = new PageInfo<>(svc.findAllFreeBord());
-		
+		System.out.println(svc.findAllFreeBord());
 			 model.addAttribute("pageInfo", pageInfo);
 		return "thymeleaf/mac/admin/allFreeBoard";
 	}
@@ -179,7 +179,7 @@ public class AdminController {
 		}
 		
 //		계정 삭제
-		@GetMapping("/admin/commentBoardDeleted/{numMac}")
+		@GetMapping("/admin/commentDeleted/{numMac}")
 		@ResponseBody
 		public Map<String,Object> commentBoardDeleted(@PathVariable("numMac")int numMac, HttpSession session) {
 			Map<String, Object> map = new HashMap<>();
