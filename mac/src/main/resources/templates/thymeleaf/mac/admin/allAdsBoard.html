@@ -65,7 +65,7 @@
                     <a href="/admin/allAdsBoard" class="nav-item nav-link active"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 광고게시물</a>
                     <a href="/admin/allComment" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 댓글</a>
                     <a href="/admin/writeNotice" class="nav-item nav-link"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;공지사항 쓰기</a>
-                    <a href="/admin/allNotice" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 공지사항</a>
+                    <a href="/admin/allNoticeBoard" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 공지사항</a>
                 </div>
             </nav>
         </div>
@@ -123,7 +123,7 @@
 	<td th:text="${ads.titleMac}"></td>
 	<td th:text="${ads.contentsMac}"></td>
 	<td th:text="${ads.wdateMac}"></td>
-	<td><button id="allAdsBoardDelete">delete</button></td>
+<td><button th:onclick="javascript:adsBoardDelete([[${ads.numMac}]]);">삭제</button></td>
     </tr>
 
 </table>

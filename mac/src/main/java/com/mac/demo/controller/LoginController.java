@@ -46,8 +46,7 @@ public class LoginController {
 		model.addAttribute("idMac",session.getAttribute("idMac").toString());
 		model.addAttribute("msg", session.getAttribute("idMac").toString()+"님 환영합니다");
 		
-		return "thymeleaf/mac/home/home";
-		//return "thymeleaf/bootstrap/home";
+		return "redirect:/home";
 		}else if(checkedId==null) {
 			model.addAttribute("msg","잘못된 아이디나 비밀번호 입니다");
 			
@@ -61,7 +60,7 @@ public class LoginController {
 	@ResponseBody
 	public Map<String,Object> logout(HttpSession session, Model model) 
 	{	
-		System.out.println("11111");
+		System.out.println(session.getAttribute("idMac"));
 		
 		session.invalidate();
 		Map<String,Object> map = new HashMap<>();

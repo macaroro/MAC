@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -37,9 +38,10 @@
 </head>
 
 <body>
+
+
     <div class="container-xxl position-relative bg-white d-flex p-0">
      
-
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
@@ -64,7 +66,7 @@
                     <a href="/admin/allAdsBoard" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 광고게시물</a>
                     <a href="/admin/allComment" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 댓글</a>
                     <a href="/admin/writeNotice" class="nav-item nav-link"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;공지사항 쓰기</a>
-                    <a href="/admin/allNotice" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 공지사항</a>
+                    <a href="/admin/allNoticeBoard" class="nav-item nav-link"><i class="bi bi-list-ul"></i>&nbsp;&nbsp;모든 공지사항</a>
                 </div>
             </nav>
         </div>
@@ -239,6 +241,7 @@
                 </div>
             </div>
             <!-- Recent Sales End -->
+
 
         </div>
         <!-- Content End -->

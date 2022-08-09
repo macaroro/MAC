@@ -33,7 +33,6 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 		return "thymeleaf/mac/User/addForm";
-		//return "thymeleaf/bootstrap/index";
 	}
 	
 //	아이디 체크후 추가폼
@@ -57,7 +56,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "thymeleaf/mac/User/addForm";
 		}
-		return "thymeleaf/mac/error/erroPage";
+		return "thymeleaf/mac/home/home";
 	}
 	
 //	계정추가
@@ -84,6 +83,7 @@ public class UserController {
 		User user = svc.getOne(idMac);
 		model.addAttribute("user", user);
 		return "thymeleaf/mac/User/myPage";
+//		return "thymeleaf/bootstrap/index";
 	}
 	
 //	계정 삭제
@@ -125,6 +125,7 @@ public class UserController {
 		map.put("id" , idMac);
 		return map;
 	}
+	
 //	email 인증 보내기
 	@PostMapping("/checkmail")
 	@ResponseBody

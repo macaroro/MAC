@@ -2,6 +2,8 @@ package com.mac.demo.admin;
 
 
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class AdminConfig
 {
+	
+	@Autowired
+	DataSource data;//프로퍼티스에 있는 오라클의 아이디와 비밀번호를 가지고 옴
+	
+	
+	
    @Bean//리턴된 객체를 받아서 스프링에서 쓴다
    BCryptPasswordEncoder  passwordEncoder() 
    {
@@ -48,7 +56,13 @@ public class AdminConfig
             
             .and()
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            //.csrf().ignoringAntMatchers("/logout") //요청시 'POST' not supported 에러 방지(사기 방지 시스템)
+            .ignoringAntMatchers("/home/**")
+            .ignoringAntMatchers("/user/**")
+            .ignoringAntMatchers("/board/**")
+            .ignoringAntMatchers("/login/**")
+    
+            
+             //요청시 'POST' not supported 에러 방지(사기 방지 시스템)
             // .ignoringAntMatchers("/admin/loginForm")
             //.ignoringAntMatchers("/doLogin")
             //.disable()  //csrf 기능을 사용하지 않을 때
@@ -82,9 +96,13 @@ public class AdminConfig
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception 
     {
-        authenticationMgr.inMemoryAuthentication()
-        .withUser("admin").password("$2a$10$4insgtXmhTYymhM1Gw7YNumhiQ.PtnDOIfUJiLP2ED2Sroe3Qri6a")
-            .authorities("ROLE_ADMIN");
+    	
+    
+         authenticationMgr.jdbcAuthentication().dataSource(data);
+         
+//        authenticationMgr.inMemoryAuthentication()//메모리 인증방식을 사용한다
+//        .withUser("admin").password("$2a$10$4insgtXmhTYymhM1Gw7YNumhiQ.PtnDOIfUJiLP2ED2Sroe3Qri6a")
+//            .authorities("ROLE_ADMIN");
        
     }
     
