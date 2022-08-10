@@ -287,3 +287,15 @@ nav.navbar.navbar-expand.bg-ligth {
 div#nav {
     background: lightblue;
 }
+
+input.form-control.border-0 {
+    position: relative;
+    bottom: 30px;
+    left: 172px;
+}
+
+i.bi.bi-search {
+    position: relative;
+    left: 350px;
+    bottom: 61px;
+}
