@@ -290,12 +290,40 @@ div#nav {
 
 input.form-control.border-0 {
     position: relative;
-    bottom: 30px;
-    left: 172px;
+    bottom: 112px;
+    left: 315px;
 }
 
 i.bi.bi-search {
     position: relative;
-    left: 350px;
-    bottom: 61px;
+    left: 490px;
+    bottom: 145px;
+}
+select.form-select.mb-3 {
+    position: relative;
+    left: 180px;
+    bottom: 36px;
+    width: 70px;
+}
+
+label.categoy {
+    position: relative;
+    bottom: 6px;
+    left: 100px;
+}
+
+label.word {
+    position: relative;
+    left: 260px;
+    bottom: 82px;
+}
+span.button {
+    position: relative;
+    left: 510px;
+    bottom: 145px;
+}
+.page {
+    position: relative;
+    left: 450px;
+    top: 160px;
 }

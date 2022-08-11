@@ -151,20 +151,22 @@
 			<div>
 				&nbsp;&nbsp;
 				<span>
-				<label for="category">검색항목</label> 
-				<select name="category">
-					<option value="contents">id</option>
-				</select>
+				<label for="category" class="categoy">검색항목</label> 
+				<select class="form-select mb-3" aria-label="Default select example" name="category">
+                                <option value="contents">id</option>
+                            </select>
 				 </span>
-				<label for="keyword">검색어</label> <input  class="form-control border-0"  type="search" name="keyword">
+				 <span class=keyword>
+				<label for="keyword" class="word">검색어</label> <input  class="form-control border-0"  type="search" name="keyword">
 				<i class="bi bi-search"></i>
-				<span>
+				</span>
+				<span class=button>
 				<button type="submit">검색</button>
 				<button type="reset">취소</button>
 				</span>		
 			</div>
-			&nbsp;&nbsp;
-			<div class="text-center">
+			&nbsp;&nbsp; 
+			<div class="page">
 			<span th:each="i :${pageInfo.navigatepageNums}"> 
 				<span th:if="${i==pageInfo.pageNum}"> 
 					<span th:text="${i}">
