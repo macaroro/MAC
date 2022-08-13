@@ -17,7 +17,7 @@ import com.mac.demo.model.User;
 
 import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 public class UserService {
 
@@ -77,13 +77,13 @@ public class UserService {
 
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 
-	         mimeMessage.setSubject("이메일 인증");
-	         mimeMessage.setContent(random,"text/html;charset=utf-8");
+	         mimeMessage.setSubject("[골목상권 분석 프로젝트] <이메일 인증 코드 도착!>");
+	         mimeMessage.setContent("인증코드입니다. 다음 코드를 입력해 주세요. : "+random ,"text/html;charset=utf-8");
 	         
 	         sender.send(mimeMessage);
 	         return random;
 	      } catch (MessagingException e) {
-	         
+	         log.error("에러={}", e);
 	      }
 		return null;
 	}

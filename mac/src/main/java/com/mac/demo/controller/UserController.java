@@ -36,7 +36,7 @@ public class UserController {
 	}
 	
 //	아이디 체크후 추가폼
-	@GetMapping("/addForm/{idMac}")
+	@PostMapping("/addForm/{idMac}")
 	public String addForm2(@PathVariable("idMac")String idMac, Model model) {
 		User user = new User();
 		user.setIdMac(idMac);
@@ -79,8 +79,12 @@ public class UserController {
 	
 //	마이페이지
 	@GetMapping("/detail")
-	public String mypage(@RequestParam("idMac")String idMac, Model model) {
+	public String mypage(@RequestParam("idMac")String idMac, Model model, HttpSession session) {
 		User user = svc.getOne(idMac);
+		
+		if((String)session.getAttribute("idMac") == null){ //세션을 가져옴
+			return "thymeleaf/mac/home/home";
+		}
 		model.addAttribute("user", user);
 		return "thymeleaf/mac/User/myPage";
 //		return "thymeleaf/bootstrap/index";
@@ -94,12 +98,20 @@ public class UserController {
 		String idMac = user.getIdMac();
 		boolean result = svc.deleted(idMac);
 		map.put("result", result);
+		
+		if((String)session.getAttribute("idMac") == null){ //세션을 가져옴
+			result = false;
+			map.put("result", result);
+			return map;
+		}
+		
 		return map;
 	}
 	
 //  유저 업데이트폼
 	@GetMapping("/updateForm")
 	public String update(User user, Model model) {
+//		System.out.println("여기누");
 		User user2 = svc.getOne(user.getIdMac());
 		model.addAttribute("user", user2);
 		return "thymeleaf/mac/User/updateForm";
