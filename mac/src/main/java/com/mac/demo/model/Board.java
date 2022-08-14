@@ -1,5 +1,7 @@
 package com.mac.demo.model;
 
+import java.sql.Date;
+
 public class Board {
 
 	private int numMac; //번호

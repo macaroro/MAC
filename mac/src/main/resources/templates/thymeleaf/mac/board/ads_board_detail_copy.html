@@ -185,7 +185,7 @@
 										<td th:text="${comment.commentMac}"></td>
 										<td th:text="${comment.wdateMac}">
 											<td th:if="${idMac}==${comment.idMac}">
-												<a th:onclick="javascript:commentdelete([[${comment.numMac}]]);" th:type="button">X</a>
+												<button th:onclick="javascript:commentdelete([[${comment.numMac}]]);">X</button>
 												<!-- <a th:href="'/board/comment/delete/'+${comment.numMac}">X</a> -->
 											</td>
 									</tr>

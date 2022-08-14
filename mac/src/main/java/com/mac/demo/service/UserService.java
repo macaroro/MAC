@@ -83,7 +83,7 @@ public class UserService {
 	         sender.send(mimeMessage);
 	         return random;
 	      } catch (MessagingException e) {
-	         log.error("에러={}", e);
+	  
 	      }
 		return null;
 	}

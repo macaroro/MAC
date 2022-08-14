@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>골목상권 분석-로그인 폼</title>
+    <title>마이페이지</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 	function deleted() {
@@ -88,8 +88,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle">상권 정보 분석</a>
                         <div class="dropdown-menu m-0">
-                            <a href="price.html" class="dropdown-item">그래프 시각화</a>
-                            <a href="feature.html" class="dropdown-item">지도 시각화</a>
+                            <a href="price.html" class="dropdown-item">정보시각화</a>
+                            <a href="feature.html" class="dropdown-item">데이터 분석</a>
                             
                         </div>
                     </div>
@@ -136,7 +136,7 @@
     <!-- Full Screen Search End -->
 
     <!-- Service Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" id="all">
         <div class="row">
         <div class="col">
         <div class="input-form" id="form">
@@ -200,10 +200,12 @@
 							              </div>
 							              <div class="col-sm-9">
 							                <p class="text-muted mb-0" th:text="${user.cityMac}+'-'+${user.townMac}+'-'+${user.villageMac}"></p>
-							              </div>
+							              </div> 
 							            </div>
-							            
+							             <hr>
+
 							          </div>
+				 <div id=button>
 				    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.3s">
 					<form id="update" th:object="${user}" action="/user/updateForm">
 						<input type="hidden" name="idMac" th:value="*{idMac}">
@@ -214,6 +216,7 @@
 						<input type="hidden" name="idMac" th:value="*{idMac}">
 						<button class="btn btn-outline-danger" type="submit">회원 탈퇴</button>
 					</form>
+			</div>
 			</div>
 							       
 					</div>
