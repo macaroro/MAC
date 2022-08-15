@@ -198,7 +198,7 @@ input[type="radio"] {margin:0;}
 input[type="button"] {cursor:pointer; -webkit-box-sizing:content-box; -moz-box-sizing:content-box; box-sizing:content-box;}
 
 /* select */
-select {-webkit-appearance:none; appearance:none; height:36px; padding:0 40px 0 20px; border:1px solid #999; background:url('../images/arrow_bottom.svg') no-repeat right 20px center/10px auto #fff; color:#222; font-family:'Roboto', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', Sans-serif; font-size:14px; line-height:34px; outline:0; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box;}
+select {    background:url('../images/arrow_bottom.svg') no-repeat right 20px center/10px auto #fff;  font-size:14px; line-height:34px; outline:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;height: 40px;padding: 0 10px;box-sizing: border-box;border: 1px solid #ddd;position: relative;bottom: 2px;}
 select.radius {-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
 select.blue {background-image:url('../images/arrow_bottom_blue.svg'); color:#00a0f3;}
 select:disabled {border-color:#ddd; background-color:#f1f1f1; color:#999;}

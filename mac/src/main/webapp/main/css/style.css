@@ -583,3 +583,36 @@ div#button {
 div#all {
     margin-right: -245px;
 }
+footer.text-muted.py-5 {
+    position: relative;
+    top: 500px;
+}
+
+button#search_btn {
+    position: relative;
+    right: 15px;
+    bottom: 1px;
+}
+
+div#search {
+	
+   padding-left:20%;
+   margin-top:-87px;
+}
+
+a#write {
+         position: relative;
+         left: 1400px;
+         bottom: 85px;}
+         
+button#cmt_del{
+	
+	  padding-left:24%;
+}
+
+td#board_del{
+	padding-left: 77%;
+	position: relative;
+	bottom: 44px;
+}
+

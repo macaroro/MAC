@@ -356,7 +356,8 @@ public class BoardController {
 	@GetMapping("/notice/detail/{num}")
 	public String getDetail_notice(@PathVariable("num") int num, 
 							Model model,
-							HttpSession session) {
+							HttpSession session,
+							@RequestParam(name="page", required = false,defaultValue = "1") int page) {
 		
 		//test용
 		String idMac = null;
@@ -376,7 +377,11 @@ public class BoardController {
 		model.addAttribute("board", svc.getNoticeDetail(num));
 		
 		// 댓글
-		model.addAttribute("commentlist", svc.getCommentList(num));
+		PageHelper.startPage(page, 10);
+		PageInfo<Comment> pageInfo = new PageInfo<>(svc.getCommentList(num));
+		model.addAttribute("commentlist",svc.getCommentList(num));
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("page", page);
 		model.addAttribute("comment", comment);
 		
 		// 댓글 삭제를 위한 idMac체크

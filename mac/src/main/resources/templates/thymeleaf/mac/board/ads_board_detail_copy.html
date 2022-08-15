@@ -8,7 +8,7 @@
 <meta content="Free HTML Templates" name="description">
 
 <!-- Favicon -->
-<link href="img/favicon.ico" rel="icon">
+<link href="/main/img/favicon.ico" rel="icon">
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,18 +20,18 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link href="/board/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-<link href="/board/lib/animate/animate.min.css" rel="stylesheet">
+<link href="/main/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="/main/lib/animate/animate.min.css" rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
-<link href="/board/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/main/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link rel="stylesheet" type="text/css" href="/board/css/style.css">
-<link rel="stylesheet" type="text/css" href="/board/css/ref_swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/board/css/ref_style.css">
-<link rel="stylesheet" type="text/css" href="/board/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/main/css/style.css">
+<link rel="stylesheet" type="text/css" href="/main/css/ref_swiper.min.css">
+<link rel="stylesheet" type="text/css" href="/main/css/ref_style.css">
+<link rel="stylesheet" type="text/css" href="/main/css/all.min.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -177,20 +177,7 @@
 					<div class="board-body">
 						<span th:text="${board.contentsMac}"></span>
 					</div>
-					<div class="board-comment-li">
-						<h5 class="board-comment-header">댓글</h5>
-							<table class="table project-table table-centered table-nowrap">
-									<tr th:each="comment : ${commentlist}">
-										<td th:text="${comment.nickNameMac}"></td>
-										<td th:text="${comment.commentMac}"></td>
-										<td th:text="${comment.wdateMac}">
-											<td th:if="${idMac}==${comment.idMac}">
-												<button th:onclick="javascript:commentdelete([[${comment.numMac}]]);">X</button>
-												<!-- <a th:href="'/board/comment/delete/'+${comment.numMac}">X</a> -->
-											</td>
-									</tr>
-							</table>
-					</div>
+				
 				</div>
 				<br>
 				<table>
@@ -204,13 +191,27 @@
 									<input type="text" th:name="commentMac">
 								<button type="submit" class="btn btn-primary py-2 px-4 ms-3">작성</button>
 								<a href="/board/ads/list" class="btn btn-primary py-2 px-4 ms-3">글목록</a> &nbsp;&nbsp;
-								<td th:if="${idMac}==${board.idMac}">
-									<a th:href="@{'/board/ads/update/' + ${board.numMac}}" class="btn btn-primary py-2 px-4 ms-3">수정하기</a> &nbsp;&nbsp;
+								<td th:if="${idMac}==${board.idMac}" id="board_del">
+									<a th:href="@{'/board/ads/update/' + ${board.numMac}}" class="btn btn-primary py-2 px-4 ms-3">수정하기</a> &nbsp;
 									<a href="javascript:remove();" class="btn btn-primary py-2 px-4 ms-3">삭제</a>
 								</td>
 							</tr>
 						</form>
 					</tr>
+						<div class="board-comment-li">
+						<th><h5 class="board-comment-header">댓글</h5></th>
+							<table class="table project-table table-centered table-nowrap">
+									<tr th:each="comment : ${commentlist}">
+										<td th:text="${comment.nickNameMac}"></td>
+										<td th:text="${comment.commentMac}"></td>
+										<td th:text="${comment.wdateMac}">
+											<td th:if="${idMac}==${comment.idMac}" >
+												<button th:onclick="javascript:commentdelete([[${comment.numMac}]]);" id="cmt_del">X</button>
+												<!-- <a th:href="'/board/comment/delete/'+${comment.numMac}">X</a> -->
+											</td>
+									</tr>
+							</table>
+					</div>
 				</table>
 			</div>
 		</section>
@@ -224,14 +225,14 @@
 	    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/user/lib/wow/wow.min.js"></script>
-    <script src="/user/lib/easing/easing.min.js"></script>
-    <script src="/user/lib/waypoints/waypoints.min.js"></script>
-    <script src="/user/lib/counterup/counterup.min.js"></script>
-    <script src="/user/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/main/lib/wow/wow.min.js"></script>
+    <script src="/main/lib/easing/easing.min.js"></script>
+    <script src="/main/lib/waypoints/waypoints.min.js"></script>
+    <script src="/main/lib/counterup/counterup.min.js"></script>
+    <script src="/main/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="/user/js/main.js"></script>
+    <script src="/main/js/main.js"></script>
 </body>
 	<footer class="text-muted py-5">
 	<br><br><br>
