@@ -105,7 +105,7 @@ public class LoginController {
 		}else{
 			model.addAttribute("msg","이름이나 이메일이 잘못 입력되었습니다");
 			
-			return "thymeleaf/mac/home/home";
+			return "thymeleaf/mac/login/findId";
 		}
 	}
 	

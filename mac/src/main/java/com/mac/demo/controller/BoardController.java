@@ -292,6 +292,10 @@ public class BoardController {
 		return "thymeleaf/mac/board/ads_board_detail_copy";
 	}
 	
+
+	
+	
+	
 //  게시글 삭제
 //	PostMapping 방식으로 form 밖에 있는 데이터를 넘기지 못해 get으로 우선 구현
 	@GetMapping("/ads/delete/{num}")

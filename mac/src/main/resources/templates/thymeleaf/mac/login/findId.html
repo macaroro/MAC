@@ -13,38 +13,31 @@
    if (msg)
       alert(msg);
 </script>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="Free HTML Templates" name="keywords">
-<meta content="Free HTML Templates" name="description">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
 
-<!-- Favicon -->
-<link href="/main/img/favicon.ico" rel="icon">
+    <!-- Favicon -->
+    <link href="/main/img/favicon.ico" rel="icon">
 
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-   href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
-   rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Icon Font Stylesheet -->
-<link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-   rel="stylesheet">
-<link
-   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-   rel="stylesheet">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<link href="/main/lib/owlcarousel/assets/owl.carousel.min.css"
-   rel="stylesheet">
-<link href="/main/lib/animate/animate.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="/main/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/main/lib/animate/animate.min.css" rel="stylesheet">
 
-<!-- Customized Bootstrap Stylesheet -->
-<link href="/main/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/main/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Template Stylesheet -->
-<link href="/main/css/style.css" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="/main/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -134,43 +127,41 @@
    <!-- Full Screen Search End -->
 
    <!-- Service Start -->
-<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+	<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="input-form col-md-12 mx-auto">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
 				<h1 class="mb-0">아이디 찾기</h1>
 			</div>
 			<div class="login-form-backgroud row mx-auto">
-				<form class="form-signin" th:action="@{/login/findId}" method="post">
+				<form class="form-signin"th:action="@{/login/findId}" method="post">
 					<div class="col-md-4 mb-3 mx-auto">
-				    <div th:if="*{foundId==null}">
-                  <input id="nameMac" name="nameMac" placeholder="이름 입력" type="text"
-                     class="form-control" style="margin-top: 30px;" > <input
-                     id="emailMac" name="emailMac" type="text" placeholder="이메일 입력"
-                     class="form-control" style="margin-top: 10px;">
-                  <button class="form-control" style="margin-top: 20px;">아이디 찾기</button>
-               </div>
+					  <div th:if="*{foundId==null}">
+						<input id="nameMac" name="nameMac" placeholder="이름을 입력하세요" type="text"
+							class="form-control" style="margin-top: 30px;"> 
+							<input
+							id="emailMac" name="emailMac" type="text" placeholder="이메일을 입력하세요"
+							class="form-control" style="margin-top: 10px;">
+						<button class="form-control" style="margin-top: 20px;">아이디 찾기</button>
+					</div>
 					</div>
 				</form>
-				<div th:if="*{foundId!=null}">
+			<div th:if="*{foundId!=null}">
 				<div class="col-md-4 mb-3 mx-auto">
                     
-					<div class="col-md-4 mb-3 mx-auto text-center" id="findId">
-					<div id="text">
-                     아이디를 찾았습니다
-				    <h4 th:text="'['+${foundId}+']'"  class="form-contr" ></h4>
-				     </div>
-					</div>
-                     </div>
+				<div class="col-md-4 mb-3 mx-auto text-center" id="findId">&nbsp;&nbsp;
+                    <h4>아이디를 찾았습니다</h4> 
+				    <h4 th:text="'['+${foundId}+']'"   ></h4>
+				    </div>
                   </div>
-				<div class="link_user"
+                  <div class="link_user"
 					style="text-align: center; margin-top: 20px; margin-bottom: 5px;">
 					<a href="/user/addForm">회원등록</a> | <a href="/login/findId">아이디</a>/
 					<a href="/login/findPassword">비밀번호 찾기</a>
 				</div>
-
-			</div>
-		</div>
-	</div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
 
    <!-- Back to Top -->
    <a href="#"
@@ -179,22 +170,16 @@
 
 
    <!-- JavaScript Libraries -->
-   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-   <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="/main/lib/wow/wow.min.js"></script>
-   <script src="/main/lib/easing/easing.min.js"></script>
-   <script src="/main/lib/waypoints/waypoints.min.js"></script>
-   <script src="/main/lib/counterup/counterup.min.js"></script>
-   <script src="/main/lib/owlcarousel/owl.carousel.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/main/lib/wow/wow.min.js"></script>
+    <script src="/main/lib/easing/easing.min.js"></script>
+    <script src="/main/lib/waypoints/waypoints.min.js"></script>
+    <script src="/main/lib/counterup/counterup.min.js"></script>
+    <script src="/main/lib/owlcarousel/owl.carousel.min.js"></script>
 
-   <!--    <!-- Template Javascript -->
-   <script src="/main/js/main.js"></script>
-
-   <script src="/main/js/jquery-3.2.1.min.js"></script>
-   <script src="/main/js/popper.min.js"></script>
-   <script src="/main/js/bootstrap.min.js"></script>
-   <script src="/main/js/script.js"></script>
+    <!-- Template Javascript -->
+    <script src="/main/js/main.js"></script>
 
 </body>
 </html>

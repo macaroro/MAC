@@ -542,16 +542,11 @@ div#findId {
 	position: relative;
 	bottom: 20px;
 	right: 50px;
-	border: 3px solid black;
+	border: 1px solid #ced4da;
 	color: black;
 	width: 300px;
 	height: 120px;}
 
-div#text {
-    position: relative;
-    left: 750px;
-    bottom: 630px;
-}
 
 div#info {
     position: relative;
