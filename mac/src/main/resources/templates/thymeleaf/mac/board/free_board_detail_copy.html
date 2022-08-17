@@ -190,7 +190,7 @@
 									<input type="text" th:name="commentMac">
 								<button type="submit" class="btn btn-primary py-2 px-4 ms-3">작성</button>
 								<a href="/board/free/list" class="btn btn-primary py-2 px-4 ms-3">글목록</a> &nbsp;&nbsp;
-								<td th:if="${idMac}==${board.idMac}">
+								<td th:if="${idMac}==${board.idMac}" id="board_del">
 									<a th:href="@{'/board/free/update/' + ${board.numMac}}" class="btn btn-primary py-2 px-4 ms-3">수정하기</a> &nbsp;&nbsp;
 									<a href="javascript:remove();" class="btn btn-primary py-2 px-4 ms-3">삭제</a>
 								</td>

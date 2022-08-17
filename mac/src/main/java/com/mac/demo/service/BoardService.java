@@ -114,6 +114,15 @@ public class BoardService {
 	public List<Board> getAdsListByNickName(String nickNameMac) {
 		return boardDao.getAdsListByNickName(nickNameMac);
 	}
+	
+	public List<Board> getNoticeListByKeyword(String titleMac) {
+		
+		return boardDao.getNoticeListByKeyword(titleMac);
+	}
+
+	public List<Board> getNoticeListByNickName(String nickNameMac) {
+		return boardDao.getNoticeListByNickName(nickNameMac);
+	}
 
 	
 	
@@ -136,6 +145,8 @@ public class BoardService {
 		}
 		return new int[] { start, end };
 	}
+
+	
 
 
 }

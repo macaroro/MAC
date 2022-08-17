@@ -392,6 +392,28 @@ public class BoardController {
 		
 		return "thymeleaf/mac/board/notice_board_detail_copy";
 	}
+	
+	@GetMapping("/notice/search")
+	public String getListByTitle_Notice(@RequestParam(name="page", required = false,defaultValue = "1") int page,
+								@RequestParam(name="category", required = false) String category,
+								@RequestParam(name="keyword", required = false) String keyword,
+								Model model) {
+		
+		PageHelper.startPage(page, 10);
+		System.out.println(keyword);
+		
+		PageInfo<Board> pageInfo = null;
+		if(category.equals("contents")) {
+			pageInfo = new PageInfo<>(svc.getNoticeListByKeyword(keyword));
+		} else {
+			pageInfo = new PageInfo<>(svc.getNoticeListByNickName(keyword));
+		}
+		
+		model.addAttribute("pageInfo",pageInfo);
+		model.addAttribute("page", page);
+		
+		return "thymeleaf/mac/board/notice_boardList_copy";
+	}
 
 //======================================== 댓글 ========================================
 	@PostMapping("/comment")

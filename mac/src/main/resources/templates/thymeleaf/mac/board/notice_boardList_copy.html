@@ -123,7 +123,6 @@
 										<td th:text="${board.numMac}"></td>
 										<td><a th:text="${board.titleMac}"
 											th:href="@{'/board/notice/detail/'+ ${board.numMac}}"></a> 
-											<span th:text="'	['+${board.countMac}+']'"></span>
 										</td>
 										<td th:text="${board.nickNameMac}"></td>
 										<td th:text="${board.wdateMac}">
@@ -169,16 +168,16 @@
 		<form id="search_form" method="get" action="/board/notice/search?category=+${category}">
 			<div>
 				&nbsp;&nbsp; 
-				<label for="category">검색항목</label> 
+				<div id="search">
 				<select name="category">
 					<option value="contents">글제목+내용</option>
 					<option value="nickname">작성자</option>
 				</select> 
-				<label for="keyword">검색어</label> 
-					<input type="text" name="keyword">
-				<button type="submit" class="btn btn-primary py-2 px-4 ms-3">검색</button>
-				<button type="reset" class="btn btn-primary py-2 px-4 ms-3">취소</button>
-				&nbsp;&nbsp;
+				
+					<input type="text" name="keyword" placeholder="검색어를 입력하세요" >
+				<button type="submit" class="btn btn-primary py-2 px-4 ms-3" id="search_btn"><i class="bi bi-search"></i></button>
+			</div>
+				
 			</div>
 			&nbsp;&nbsp;
 		</form>

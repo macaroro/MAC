@@ -51,7 +51,10 @@ public interface BoardMapper {
 	List<Board> getAdsListByKeyword(String keyword);
 	List<Board> getAdsListByNickName(String nickNameMac);
 	
+	List<Board> getNoticeListByKeyword(String keyword);
+	List<Board> getNoticeListByNickName(String nickNameMac);
 	
+
 	
 //	myPage
 	List<Board> getMypageInFreeBoard(String idMac);
