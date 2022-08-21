@@ -29,4 +29,14 @@
 		DELETE FROM USER_TB WHERE idmac=#{idMac}
 	</delete>
 	
+	<select id="findWrite" resultType="com.mac.demo.model.Board" parameterType="String">
+		SELECT * FROM ADS_BOARD WHERE idmac=#{idmac}
+
+	    UNION
+
+		SELECT * FROM FREE_BOARD WHERE idmac=#{idmac}
+	</select>
+	
+	
+	
 </mapper>

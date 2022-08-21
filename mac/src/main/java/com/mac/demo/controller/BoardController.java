@@ -111,6 +111,7 @@ public class BoardController {
 //  게시글 보기
 	@GetMapping("/free/detail/{num}")
 	public String getDetail(@PathVariable("num") int num, 
+							@RequestParam(name="page", required = false,defaultValue = "1") int page, 
 							Model model,
 							HttpSession session) {
 		
@@ -131,14 +132,22 @@ public class BoardController {
 		model.addAttribute("num", num);
 		model.addAttribute("board", svc.getFreeDetail(num));
 		
+		
+		PageHelper.startPage(page, 7);
+		PageInfo<Comment> pageInfo = new PageInfo<>(svc.getCommentList(num));
+		
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("page", page);
 		// 댓글
-		model.addAttribute("commentlist", svc.getCommentList(num));
 		model.addAttribute("comment", comment);
 		
 		// 댓글 삭제를 위한 idMac체크
 		
 		return "thymeleaf/mac/board/free_board_detail_copy";
 	}
+	
+	
+	
 	
 	
 //  게시글 삭제
@@ -202,7 +211,7 @@ public class BoardController {
 									Model model,
 									HttpSession session) {
 		
-		PageHelper.startPage(page, 10);
+		PageHelper.startPage(page, 5);
 		PageInfo<Board> pageInfo = new PageInfo<>(svc.getAdsList());
 		
 		model.addAttribute("pageInfo", pageInfo);
@@ -263,6 +272,7 @@ public class BoardController {
 //  게시글 보기
 	@GetMapping("/ads/detail/{num}")
 	public String getDetail_ads(@PathVariable("num") int num, 
+								@RequestParam(name="page", required = false,defaultValue = "1") int page,
 							Model model,
 							HttpSession session) {
 		
@@ -284,7 +294,11 @@ public class BoardController {
 		model.addAttribute("board", svc.getAdsDetail(num));
 		
 		// 댓글
-		model.addAttribute("commentlist", svc.getCommentList(num));
+		PageHelper.startPage(page, 7);
+		PageInfo<Comment> pageInfo = new PageInfo<>(svc.getCommentList(num));
+		
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("page", page);
 		model.addAttribute("comment", comment);
 		
 		// 댓글 삭제를 위한 idMac체크
