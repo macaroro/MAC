@@ -88,7 +88,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle">상권 정보 분석</a>
                         <div class="dropdown-menu m-0">
-                            <a href="price.html" class="dropdown-item">정보시각화</a>
+                            <a href="price.html" class="dropdown-item">데이터 시각화</a>
                             <a href="feature.html" class="dropdown-item">데이터 분석</a>
                             
                         </div>
@@ -107,7 +107,7 @@
                 <div th:if="${idMac==null}">
                 <a href="/login/loginForm" class="btn btn-primary py-2 px-4 ms-3">로그인</a>
                 <a href="/user/addForm" class="btn btn-primary py-2 px-4 ms-3">회원가입</a>
-         </div></div>
+         </div>
          <div th:if="${idMac !=null}">
          <h5 th:text="${idMac}+'님 환영합니다'" th:style="'color:gray'"></h5>
           <a href="" class="btn btn-primary py-2 px-4 ms-3" id="logout">로그아웃</a>
