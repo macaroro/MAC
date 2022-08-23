@@ -576,7 +576,7 @@ div#button {
     left: 70px;
 }
 div#all {
-    margin-right: -245px;
+    margin-right: -145px;
 }
 footer.text-muted.py-5 {
     position: relative;
@@ -606,9 +606,10 @@ button#cmt_del{
 }
 
 td#board_del{
-	padding-left: 77%;
-	position: relative;
-	bottom: 44px;
+	float: right;
+	position:relative;
+    bottom:43px;
+	
 }
 
 div#comPage {
@@ -634,4 +635,6 @@ div#writepage {
     top: 350px;
     right:15px;
 }
+
+
 

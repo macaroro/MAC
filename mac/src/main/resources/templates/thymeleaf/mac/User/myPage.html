@@ -111,7 +111,7 @@
          <div th:if="${idMac !=null}">
          <h5 th:text="${idMac}+'님 환영합니다'" th:style="'color:gray'"></h5>
           <a href="" class="btn btn-primary py-2 px-4 ms-3" id="logout">로그아웃</a>
-          <a th:href="'/home/myPage/'+${idMac}" class="btn btn-primary py-2 px-4 ms-3">마이페이지</a>
+          <a th:href="'/user/detail/'+${idMac}" class="btn btn-primary py-2 px-4 ms-3">마이페이지</a>
          </div>
             </div>
         </nav>
@@ -244,18 +244,25 @@
 										<th scope="col">제목</th>
 										<th scope="col">작성자</th>
 										<th scope="col">작성일</th>
+										<th scope="col">게시판 이름</th>
+										
 									
 									</tr>
 								</thead>
 									  <tbody>
 									<tr th:each="myWrite : ${pageInfo.list}">
 										<td th:text="${myWrite.numMac}"></td>
-										<td><a th:text="${myWrite.titleMac}"
+										<td th:if="${myWrite.tableMac}=='ADS_BOARD'"><a th:text="${myWrite.titleMac}"
 											th:href="@{'/board/ads/detail/'+ ${myWrite.numMac}}"></a> 
 										</td>
+										
+										<td th:if="${myWrite.tableMac}=='FREE_BOARD'"><a th:text="${myWrite.titleMac}"
+											th:href="@{'/board/free/detail/'+ ${myWrite.numMac}}"></a> 
+										</td>
 										<td th:text="${myWrite.nickNameMac}"></td>
-										<td th:text="${myWrite.wdateMac}">
-										<td></td>
+										<td th:text="${myWrite.wdateMac}"></td>
+										<td th:if="${myWrite.tableMac}=='ADS_BOARD'">광고 게시판</td>
+										<td th:if="${myWrite.tableMac}=='FREE_BOARD'">자유 게시판</td>
 									</tr>
 								</tbody>
 								
@@ -297,6 +304,7 @@
         </div>
         </div>
         </div>
+    </div>
     </div>
     </div>
     <!-- Service End -->

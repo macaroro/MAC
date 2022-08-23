@@ -29,6 +29,8 @@ public interface UserMapper {
 	//마이 페이지에서 글
 	List<Board> findWrite(String idMac);
 	
+
+	
 	
 	
 	

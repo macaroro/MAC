@@ -14,7 +14,7 @@
 			dataType:'json',
 			success:function(res){ //res는 object
 					alert(res.updated ? '수정 성공' : '수정실패'); //res object 안에있는 num
-					location.href="/board/free/list";
+					location.href="/board/free/detail/"+'[[${board.numMac}]]';
 			},
 			error:function(xhr,status,err){
 				alert(err);
@@ -107,7 +107,7 @@
 	         <div th:if="${idMac !=null}">
 		         <h5 th:text="${idMac}+'님 환영합니다'" th:style="'color:gray'"></h5>
 		          <a href="" class="btn btn-primary py-2 px-4 ms-3" id="logout">로그아웃</a>
-		          <a th:href="'/home/myPage/'+${idMac}" class="btn btn-primary py-2 px-4 ms-3">마이페이지</a>
+		          <a th:href="'/user/detail/'+${idMac}" class="btn btn-primary py-2 px-4 ms-3">마이페이지</a>
 	         </div>
 		</nav>
 	</div>

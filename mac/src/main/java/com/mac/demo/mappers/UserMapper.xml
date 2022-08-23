@@ -30,12 +30,30 @@
 	</delete>
 	
 	<select id="findWrite" resultType="com.mac.demo.model.Board" parameterType="String">
-		SELECT * FROM ADS_BOARD WHERE idmac=#{idmac}
+		SELECT nummac,titlemac,wdatemac, idmac,nicknamemac,
+		       (select table_name 
+		          from all_tables 
+                 where table_name='ADS_BOARD'
+                ) as TABLEMAC
 
-	    UNION
+          FROM ADS_BOARD
+         WHERE idmac=#{idMac}
 
-		SELECT * FROM FREE_BOARD WHERE idmac=#{idmac}
+
+       UNION
+
+	  SELECT nummac,titlemac,wdatemac, idmac,nicknamemac,
+             (select table_name 
+				from all_tables 
+			   where table_name='FREE_BOARD'
+			) as TABLEMAC
+
+	   FROM FREE_BOARD 
+	  WHERE idmac=#{idMac}
 	</select>
+
+	
+	
 	
 	
 	
