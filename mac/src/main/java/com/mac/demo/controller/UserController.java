@@ -85,11 +85,17 @@ public class UserController {
 	public String mypage(@PathVariable("idMac")String idMac, Model model, HttpSession session,@RequestParam(name="page", required = false,defaultValue = "1") int page) {
 		User user = svc.getOne(idMac);
 	
+		
+		if(idMac.equals((String)session.getAttribute("idMac"))==false) {
+			return "redirect:/home";
+		};
 	
 		
 		if((String)session.getAttribute("idMac") == null){ //세션을 가져옴
 			return "thymeleaf/mac/home/home";
-		}
+		};
+		
+		
 		model.addAttribute("user", user);
 		
 		PageHelper.startPage(page, 5);
