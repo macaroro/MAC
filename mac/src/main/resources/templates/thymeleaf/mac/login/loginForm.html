@@ -12,27 +12,7 @@
 	var msg = '[[${msg}]]';
 	if (msg)
 		alert(msg);
-	function login() {
-		var serData = $('#loginForm').serialize();
-		$.ajax({
-			url : '/login/loginForm',
-			method : 'post',
-			cache : false,
-			data : serData,
-			dataType : 'json',
-			success : function(res) {
-				alert(res.login ? '로그인 성공' : '로그인 실패');
-				if (res.login == true) {
-					location.href = "/home"
 
-				}
-			},
-			error : function(xhr, status, err) {
-				alert(err);
-			}
-		});
-		return false;
-	}
 </script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
@@ -62,11 +42,7 @@
 </head>
 
 <body>
-	<!-- Spinner Start -->
-	<!--div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner"></div>
-    </div-->
-	<!-- Spinner End -->
+
 
 
 	<!-- Navbar Start -->
@@ -193,6 +169,7 @@
 
 	<!-- 	<!-- Template Javascript -->
 	<script src="/main/js/main.js"></script>
+	
 
 </body>
 

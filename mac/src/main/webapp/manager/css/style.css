@@ -14,19 +14,7 @@
 }
 
 
-/*** Spinner ***/
-#spinner {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
-    z-index: 99999;
-}
 
-#spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
-    visibility: visible;
-    opacity: 1;
-}
 
 
 
@@ -284,12 +272,4 @@ nav.navbar.navbar-expand.bg-ligth {
     position: relative;
 
 }
-div#nav {
-    background: lightblue;
-}
 
-form#search_form {
-    position: relative;
-    bottom: 40px;
-    left: 200px;
-}

@@ -43,8 +43,8 @@ public class LoginController {
 //		checkdeId에 데이터가 있을시 세션에 id저장
 		if(idMac.equals(checkedId)) {
 		session.setAttribute("idMac", idMac);
+		System.out.println(session.getAttribute("idMac").toString());
 		model.addAttribute("idMac",session.getAttribute("idMac").toString());
-		model.addAttribute("msg", session.getAttribute("idMac").toString()+"님 환영합니다");
 		
 		return "redirect:/home";
 		}else if(checkedId==null) {
