@@ -273,3 +273,16 @@ nav.navbar.navbar-expand.bg-ligth {
 
 }
 
+table#table {
+	margin-left: 35%;
+	width: 150%;}
+	
+form#input_form {
+    margin-left: 50%;
+}
+
+div#page {
+    position: relative;
+    left: -300px;
+    bottom: 50px;
+}

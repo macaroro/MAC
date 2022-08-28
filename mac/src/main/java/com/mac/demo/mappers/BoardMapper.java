@@ -26,6 +26,9 @@ public interface BoardMapper {
 	int Adsdelete(int num); 
 	int Noticedelete(int num); 
 	
+	int freeCommentAllDelete(int num);//게시글 삭제하면 댓글도 삭제
+	int adsCommentAllDelete(int num);
+	
 	Board getFreeDetail(int num); //게시글 상세보기
 	Board getAdsDetail(int num);
 	Board getNoticeDetail(int num);
@@ -61,5 +64,6 @@ public interface BoardMapper {
 	List<Board> getMypageInAdsBoard(String idMac);
 	
 	Page<Board> getList(Pageable pageable);
+	
 
 }

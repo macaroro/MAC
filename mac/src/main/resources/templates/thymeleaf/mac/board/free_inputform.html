@@ -52,30 +52,7 @@
 		location.href="/board/free/list";
 	}
 
-	function save() {
-		$.ajax({
-			url : '/board/free/save',
-			method : 'post',
-			cache : false,
-			data : $('#input_form').serialize(),
-			dataType : 'json',
-			success : function(res) {
-				//alert(res.saved ? '저장 성공' : res.msg);
-				//if (!res.saved && res.msg) {
-					//location.href = "/login/loginForm";
-				//}
-				
-				if(res.saved!=0){
-					alert('저장성공');	
-					location.href="/board/free/detail/"+res.saved;
-				};
-			},
-			error : function(xhr, status, err) {
-				alert('Error:' + err);
-			}
-		});
-		return false;
-	}
+
 </script>
 </head>
 <body>
@@ -139,7 +116,7 @@
 				<h1 class="fw-light">자유게시판</h1>
 			</div>
 		<h3>게시판 글 입력 폼</h3>
-		<form id="input_form" method="post" th:object="${board}" th:action="@{/board/free/save}" onsubmit="return save();">
+		<form id="input_form"  th:object="${board}" onsubmit="return freesave();">
 			<input type="hidden" th:field="*{nickNameMac}" name="nickNameMac">
 			<input type="hidden" th:value="${idMac}" name="idMac">
 				<br>
@@ -177,6 +154,7 @@
 
 		<!-- Template Javascript -->
 		<script src="/main/js/main.js"></script>
+		<script src="/main/js/board.js"></script>
 	</main>
 	
 

@@ -84,6 +84,16 @@ public class BoardService {
 	}
 	public boolean Noticeedit(Board board) {
 		return 0 < boardDao.Noticeedit(board);
+		
+	}
+
+	public boolean freeCommentAllDelete(int num) {
+		return 0<boardDao.freeCommentAllDelete(num);
+		
+	}
+	public boolean adsCommentAllDelete(int num) {
+		return 0<boardDao.adsCommentAllDelete(num);
+		
 	}
 //	-----------------------댓글-----------------------
 	public List<Comment> getCommentList(int num){
@@ -123,6 +133,8 @@ public class BoardService {
 	public List<Board> getNoticeListByNickName(String nickNameMac) {
 		return boardDao.getNoticeListByNickName(nickNameMac);
 	}
+	
+	
 
 	
 	
@@ -145,6 +157,7 @@ public class BoardService {
 		}
 		return new int[] { start, end };
 	}
+
 
 	
 

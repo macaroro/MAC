@@ -3,26 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>광고게시판 상세보기</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-	function edit() {
-		$.ajax({
-			url:'/board/ads/edit',
-			method:'post',
-			cache:false,
-			data:$('#edit_form').serialize(),
-			dataType:'json',
-			success:function(res){ //res는 object
-					alert(res.updated ? '수정 성공' : '수정실패'); //res object 안에있는 num
-					location.href="/board/ads/detail/"+'[[${board.numMac}]]';
-			},
-			error:function(xhr,status,err){
-				alert(err);
-			}
-		});
-		return false;
-	}
-</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
 <meta content="Free HTML Templates" name="description">
@@ -161,6 +142,7 @@
 
     <!-- Template Javascript -->
     <script src="/main/js/main.js"></script>
+    <script src="/main/js/board.js"></script>
 </body>
 
 	<footer class="text-muted py-5">

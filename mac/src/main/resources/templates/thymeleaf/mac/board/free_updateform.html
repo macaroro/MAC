@@ -5,23 +5,7 @@
 <title>광고게시판 상세보기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-	function edit() {
-		$.ajax({
-			url:'/board/free/edit',
-			method:'post',
-			cache:false,
-			data:$('#edit_form').serialize(),
-			dataType:'json',
-			success:function(res){ //res는 object
-					alert(res.updated ? '수정 성공' : '수정실패'); //res object 안에있는 num
-					location.href="/board/free/detail/"+'[[${board.numMac}]]';
-			},
-			error:function(xhr,status,err){
-				alert(err);
-			}
-		});
-		return false;
-	}
+
 </script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
@@ -53,10 +37,7 @@
 <link rel="stylesheet" type="text/css" href="/main/css/ref_style.css">
 <link rel="stylesheet" type="text/css" href="/main/css/all.min.css">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous">
-</script>
+
 </head>
 <body>
 	
@@ -123,7 +104,7 @@
 					<div class="col-lg-8 col-md-8" style="margin-left: 8px;">
 						<h1 class="fw-light">자유게시판 수정</h1>
 					</div>
-			<form id="edit_form" onsubmit="return edit();" class="board">
+			<form id="edit_form" onsubmit="return freeedit();" class="board">
 			<div class="board-header">
 			<input type="hidden" id="idMac" name="idMac" th:value="${board.idMac}">
 			<input type="hidden" id="numMac" name="numMac" th:value="${board.numMac}">
@@ -161,6 +142,7 @@
 
     <!-- Template Javascript -->
     <script src="/main/js/main.js"></script>
+    <script src="/main/js/board.js"></script>
 </body>
 
 	<footer class="text-muted py-5">

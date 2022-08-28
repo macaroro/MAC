@@ -157,7 +157,9 @@ public class BoardController {
 	public Map<String, Object> delete(@PathVariable("num") int num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		
 		map.put("deleted", svc.Freedelete(num));
+		map.put("commetdeleted", svc.freeCommentAllDelete(num));
 		return map;
 	}
 	
@@ -316,8 +318,9 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> delete_ads(@PathVariable("num") int num) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		svc.adsCommentAllDelete(num);
 		map.put("deleted", svc.Adsdelete(num));
+		map.put("commetdeleted", svc.adsCommentAllDelete(num));
 		return map;
 	}
 	
