@@ -641,7 +641,7 @@ div.map{
 	width:50%;
 	float:left;
 	box-sizing:border-box;
-	background: #0ff;
+	
 	height: 800px;
 	position: relative;
     top: 26px;
@@ -652,7 +652,6 @@ div.data{
 	width:50%;
 	float:right;
 	box-sizing:border-box;
-	background: #ff0;
 	height: 800px;
 	
 }
@@ -672,6 +671,8 @@ div#storecart {
     
 }
 
+
+
 div#alldata {
     margin-bottom: -23%;
     margin-top: 1%;
@@ -686,3 +687,27 @@ footer#boardfooter {
     top: 500px;
 }
 
+div#seletedata {
+    position: relative;
+    left: 100px;
+}
+
+div#selectloca {
+    position: relative;
+    left: 150px;
+
+}
+
+div.paraent {
+  display: flex;
+  position: relative;
+  left:30px;
+  top:50px;
+}
+
+button#datasearch{
+	
+	 position: relative;
+       left:-30px;
+       top:30px;
+}
