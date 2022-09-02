@@ -282,7 +282,7 @@ form#input_form {
 }
 
 div#page {
-    position: relative;
-    left: -300px;
-    bottom: 50px;
+   position: relative;
+    right:260px;
+  
 }

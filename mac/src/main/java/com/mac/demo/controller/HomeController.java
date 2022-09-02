@@ -38,15 +38,24 @@ public class HomeController {
 	
 //	데이터 출처
 	@GetMapping("/dataSource")
-	public String dataSorce() {
+	public String dataSorce(Model model,HttpSession session) {
+		if(session.getAttribute("idMac")!=null) {
+			String uid = session.getAttribute("idMac").toString();
+			model.addAttribute("idMac",uid);
+			return "thymeleaf/mac/home/dataSource";
+		}
 		
 		return "thymeleaf/mac/home/dataSource";
 	}
 	
 //	사이트소개
 	@GetMapping("/siteIntroduction")
-	public String siteIntroduction() {
-		
+	public String siteIntroduction(Model model,HttpSession session) {
+		if(session.getAttribute("idMac")!=null) {
+			String uid = session.getAttribute("idMac").toString();
+			model.addAttribute("idMac",uid);
+			return "thymeleaf/mac/home/siteIntroduction";
+		}
 		return "thymeleaf/mac/home/siteIntroduction";
 	}
 	

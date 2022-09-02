@@ -129,6 +129,7 @@
 				<table>
 					<tr>
 						<form id="comment_form" onsubmit="return comment();">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 							<input type="hidden" th:name="nickNameMac" th:value="${comment.nickNameMac}">
 							<input id="pcodeMac" type="hidden" th:name="pcodeMac" th:value="${comment.pcodeMac}">
 							<input type="hidden" th:name="idMac" th:value="${comment.idMac}">

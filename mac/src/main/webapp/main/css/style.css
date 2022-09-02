@@ -76,18 +76,6 @@
     }
 }
 
-#spinner {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
-    z-index: 99999;
-}
-
-#spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
-    visibility: visible;
-    opacity: 1;
-}
 
 
 /*** Heading ***/
@@ -597,7 +585,7 @@ div#search {
 
 a#write {
          position: relative;
-         left: 1400px;
+         left: 1300px;
          bottom: 85px;}
          
 button#cmt_del{
@@ -664,10 +652,10 @@ div#mapdata {
 }
 
 
-div#storecart {
+div#storechart {
     position: relative;
+    left:1120px;
     bottom: 360px;
-    left: 1110px;
     
 }
 

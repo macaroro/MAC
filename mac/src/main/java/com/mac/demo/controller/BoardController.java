@@ -42,8 +42,11 @@ public class BoardController {
 //	커뮤니티메인화면
 	@GetMapping("/main")
 	public String main(Model model, HttpSession session) {
-		
-//		model.addAttribute((String)session.getAttribute("idMac"));
+		if(session.getAttribute("idMac")!=null) {
+			String uid = session.getAttribute("idMac").toString();
+			model.addAttribute("idMac",uid);
+			return "thymeleaf/mac/board/boardMain_copy";
+		}
 		return "thymeleaf/mac/board/boardMain_copy";
 	}
 	
