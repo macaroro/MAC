@@ -152,14 +152,16 @@ var numMac='[[${board.numMac}]]';
 										<td th:text="${comment.wdateMac}"></td>
 										<td th:text="${board.wdateMac}">
 									    <td th:if="${idMac}==${comment.idMac}">
-												<button th:onclick="javascript:freecommentdelete([[${comment.numMac}]]);"  id="cmt_del">X</button>
+										<button th:onclick="javascript:freecommentdelete([[${comment.numMac}]]);"  id="cmt_del">X</button>
 												<!-- <a th:href="'/board/comment/delete/'+${comment.numMac}">X</a> -->
 											</td>
+										
 									</tr>
 									
 									
 								
 							</table>
+						
 					</div>
 					</tr>
 						   <div class="pt-3" align="center" id="comPage">

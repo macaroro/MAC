@@ -496,6 +496,7 @@ h6,
 .bg-header {
     background:  url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
+    width: 100%;
 }
 
 .link-animated a {
@@ -526,6 +527,7 @@ h6,
       -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
+
 div#findId {
 	position: relative;
 	bottom: 20px;
@@ -584,9 +586,9 @@ div#search {
 }
 
 a#write {
-         position: relative;
-         left: 1300px;
-         bottom: 85px;}
+      position: relative;
+      left: 1300px;
+      bottom: 85px;}
          
 button#cmt_del{
 	
@@ -653,10 +655,12 @@ div#mapdata {
 
 
 div#storechart {
-    position: relative;
-    left:1120px;
-    bottom: 360px;
-    
+	margin-right: 200%;
+	margin-left: 100%;
+	margin-bottom: 5%;
+	position: relative;
+	top: -360px;
+	    
 }
 
 

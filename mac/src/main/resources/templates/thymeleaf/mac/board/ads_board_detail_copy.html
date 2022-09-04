@@ -124,7 +124,7 @@
 				<br>
 				<table>
 					<tr>
-						<form id="comment_form" onsubmit="return comment();">
+						<!--  <form id="comment_form" onsubmit="return comment();">
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 							<input type="hidden" th:name="nickNameMac" th:value="${comment.nickNameMac}">
 							<input id="pcodeMac" type="hidden" th:name="pcodeMac" th:value="${comment.pcodeMac}">
@@ -139,11 +139,12 @@
 									<a href="javascript:remove();" class="btn btn-primary py-2 px-4 ms-3">삭제</a>
 								</td>
 							</tr>
-						</form>
+						</form>-->
 					</tr>
 						<div class="board-comment-li">
 						<th><h5 class="board-comment-header">댓글</h5></th>
-							<table class="table project-table table-centered table-nowrap">
+							<table class="table project-table table-centered table-nowrap" style="height:auto;" >
+							
 									<tr th:each="comment : ${pageInfo.list}">
 										<td th:text="${comment.nickNameMac}"></td>
 										<td th:text="${comment.commentMac}"></td>
@@ -159,6 +160,24 @@
 									
 								
 							</table>
+								<form id="comment_form" onsubmit="return comment();">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+							<input type="hidden" th:name="nickNameMac" th:value="${comment.nickNameMac}">
+							<input id="pcodeMac" type="hidden" th:name="pcodeMac" th:value="${comment.pcodeMac}">
+							<input type="hidden" th:name="idMac" th:value="${comment.idMac}">
+							<tr>
+								<label for="commentMac">댓글작성</label> &nbsp;&nbsp;
+									<input type="text" th:name="commentMac">
+								<button type="submit" class="btn btn-primary py-2 px-4 ms-3">작성</button>
+								<a href="/board/ads/list" class="btn btn-primary py-2 px-4 ms-3">글목록</a> &nbsp;&nbsp;
+								<td th:if="${idMac}==${board.idMac}" id="board_del">
+									<a th:href="@{'/board/ads/update/' + ${board.numMac}}" class="btn btn-primary py-2 px-4 ms-3">수정하기</a> &nbsp;
+									<a href="javascript:remove();" class="btn btn-primary py-2 px-4 ms-3">삭제</a>
+								</td>
+							</tr>
+						</form>
+						
+							
 					</div>
 			 <div class="pt-3" align="center" id="comPage">
 							<ul class="pagination justify-content-center mb-0">
@@ -188,6 +207,8 @@
 								</span>
 							</ul>
 						</div>
+						
+						
 				</table>
 			</div>
 		
