@@ -216,7 +216,7 @@ public class BoardController {
 									Model model,
 									HttpSession session) {
 		
-		PageHelper.startPage(page, 5);
+		PageHelper.startPage(page, 10);
 		PageInfo<Board> pageInfo = new PageInfo<>(svc.getAdsList());
 		
 		model.addAttribute("pageInfo", pageInfo);
@@ -366,7 +366,7 @@ public class BoardController {
 										Model model,
 										HttpSession session) {
 		
-		PageHelper.startPage(page, 10);
+		PageHelper.startPage(page,10);
 		PageInfo<Board> pageInfo = new PageInfo<>(svc.getNoticeList());
 		
 		model.addAttribute("pageInfo", pageInfo);

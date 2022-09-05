@@ -130,9 +130,23 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
-	
-						<div class="pt-3" align="center">
+							<form id="search_form" method="get" action="/board/free/search?category=+${category}">
+			<div>
+				&nbsp;&nbsp; 
+				<div id="search">
+				<select name="category">
+					<option value="contents">글제목+내용</option>
+					<option value="nickname">작성자</option>
+				</select> 
+				
+					<input type="text" name="keyword" placeholder="검색어를 입력하세요" >
+				<button type="submit" class="btn btn-primary py-2 px-4 ms-3" id="search_btn"><i class="bi bi-search"></i></button>
+			</div>
+				
+			</div>
+			
+		</form>
+		      <div class="pt-3" align="center">
 							<ul class="pagination justify-content-center mb-0">
 								<span th:if="${page!=1}"> <a class="page-link"
 									th:href="@{'/board/free/list?page='+${page-1}}">Previous</a>
@@ -160,29 +174,19 @@
 								</span>
 							</ul>
 						</div>
+			<a href="/board/free/input" class="btn btn-primary py-2 px-4 ms-3" id="write">글쓰기</a>
+			
+							</div>
+		  
+					
 					</div>
 				</div>
 			</table>
 		</div>
 		<br>
-		<form id="search_form" method="get" action="/board/free/search?category=+${category}">
-			<div>
-				&nbsp;&nbsp; 
-				<div id="search">
-				<select name="category">
-					<option value="contents">글제목+내용</option>
-					<option value="nickname">작성자</option>
-				</select> 
-				
-					<input type="text" name="keyword" placeholder="검색어를 입력하세요" >
-				<button type="submit" class="btn btn-primary py-2 px-4 ms-3" id="search_btn"><i class="bi bi-search"></i></button>
-			</div>
-				
-			</div>
-			&nbsp;&nbsp;
-		</form>
+		
 		&nbsp;&nbsp;
-					<a href="/board/free/input" class="btn btn-primary py-2 px-4 ms-3" id="write">글쓰기</a>
+					
 
 		<!-- JavaScript Libraries -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
