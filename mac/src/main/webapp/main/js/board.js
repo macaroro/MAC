@@ -110,11 +110,17 @@
 //----------자유 게시판쪽의 js---------
 
 	function freesave() {
+		var form = $('#input_form')[0]
+		var data = new FormData(form);
+
 		$.ajax({
 			url : '/board/free/save',
+			enctype: 'multipart/form-data',
+			processData: false,
+			contentType: false,
 			method : 'post',
 			cache : false,
-			data : $('#input_form').serialize(),
+			data : data,
 			dataType : 'json',
 			success : function(res) {
 				
@@ -212,3 +218,22 @@
 		}
 		return false;
 	}(jQuery);
+
+
+function filedelete(num){
+	$.ajax({
+		url : '/board/file/delete/'+num,
+		method:'get',
+		cache:false,
+		dataType:'json',
+		success:function(res){ //res는 object
+		
+				alert(res.filedeleted ? '파일삭제성공' : '파일삭제실패');
+				location.href = '/board/free/detail/'+numMac;
+		},
+		error:function(xhr,status,err){
+			alert(err);
+		}
+	});
+	return false;
+}(jQuery);

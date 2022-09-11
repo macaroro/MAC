@@ -35,6 +35,8 @@
     border:#DDDDDD;
     margin: 0 auto;
     height: 100% auto;
+  
+   
 }
 
 .board-comment-header{
@@ -619,9 +621,10 @@ footer#boardfooter {
 }
 
 /*** bigdata***/
-div#seletedata {
-    position: relative;
-    left: 100px;
+span#seletedata {
+	margin: 0 auto;
+	
+
 }
 
 div#selectloca {
@@ -643,9 +646,7 @@ button#datasearch{
        left:-30px;
        top:30px;
 }
-div#mapdata {
-    width: 150%;
-}
+
 div.map{
 	width:50%;
 	float:left;
@@ -653,7 +654,8 @@ div.map{
 	
 	height: 800px;
 	position: relative;
-    top: 26px;
+    top:100px;
+    left: 50px;
 }
 
 div.data{
@@ -662,11 +664,14 @@ div.data{
 	float:right;
 	box-sizing:border-box;
 	height: 800px;
+	margin-top: 5%;
+	
 	
 }
 .row.g-4 {
     width: 60%;
 }
+
 
 
 

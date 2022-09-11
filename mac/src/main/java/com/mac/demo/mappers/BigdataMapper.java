@@ -17,6 +17,16 @@ public interface BigdataMapper {
 
 	XY getxy(String gil);
 
+	List<String> getsvc(String gil, String kind);
+
+	List<String> getyear(String thissvc, String thisgil, String kind);
+
+	List<String> getquarter(String year, String thissvc, String thisgil, String kind);
+
+	List<String> getPopyear(String gil, String kind);
+
+	List<String> getPopquarter(String year, String thisgil, String kind);
+
 	
 
 }

@@ -1,0 +1,51 @@
+
+
+초간단 요약
+jQuery : javascript 기반으로 만들어진 라이브러리
+JSON : 인터넷에서 자료를 주고받을때 쓰는 문법
+ajax : 비동기로 화면깜박임 없이 데이터를 주고받는 방법
+
+jquery
+ui화면 개발에 강력한 javascript.
+
+json
+(JavaScript Object Notation 표기법)
+1:1 데이타 형으로 전송 또는 취득할 수있는 데이타 표기법.
+{ name : value }
+
+ajax
+비동기식 서버 전송&수신.
+비동기식은 서버에 요청했을 경우, 화면단에서는 다른 작업을 할 수 있지만,
+동기식은 서버에 요청후, 답변이 오는 걸...기다릴 수 밖에 없음...
+
+
+모르는거 메모 
+1. siblings() 메서드
+
+[Traversing] JQ - siblings() 메서드 
+- 선택요소의 모든 형제요소 반환. (= siblings메서드 = 시블링메서드)
+
+.siblings() 메소드는 선택한 요소의 형제(sibling) 요소 중에서 지정한 선택자에 해당하는 요소를 모두 선택한다.
+
+
+2. .next()
+3. .prev()
+바로 인접한 다음 요소 또는 이전 요소를 선택하는 방법
+prev() - 이전 요소를 선택하도록 반환
+next() - 다음 요소를 선택하도록 반환
+
+
+시간 주는거      setInterval , settimeout은 한번만 
+
+ let auto_1 = setInterval(function(){
+        addNum++;
+        console.log("sunNum" + addNum);
+
+      },3000);
+
+      let auto_1 = setInterval(function(){
+        addNum--;
+        console.log("sunNum" + addNum);
+
+      },3000);
+
