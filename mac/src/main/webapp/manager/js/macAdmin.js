@@ -1,3 +1,14 @@
+    var token = $("#_csrf").attr("content");
+	var header = $("#_csrf_header").attr("content");
+	
+	$(function() {
+	    $(document).ajaxSend(function(e, xhr, options) {
+	        xhr.setRequestHeader(header, token);
+	    });
+	});
+	
+
+
 
 function noticeDelete(numMac)
 
@@ -89,11 +100,16 @@ function adsBoardDelete(numMac)
 
 
 function save() {
+		var form = $('#input_form')[0]
+		var data = new FormData(form);
 		$.ajax({
 			url : '/admin/save',
+			enctype: 'multipart/form-data',
+			processData: false,
+			contentType: false,
 			method : 'post',
 			cache : false,
-			data : $('#input_form').serialize(),
+			data : data,
 			dataType : 'json',
 			success : function(res) {
 				
@@ -109,6 +125,8 @@ function save() {
 		return false;
 	}(jQuery);
 	
+	
+
 	function commentDelete(numMac)
 
     {

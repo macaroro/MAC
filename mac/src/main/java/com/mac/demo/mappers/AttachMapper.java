@@ -16,6 +16,7 @@ public interface AttachMapper {
 	
 	int insertAttach(Attach att);
 
+
 	List<Map<String, Object>> getList();
 	
 	String getFname(int num);
@@ -35,5 +36,11 @@ public interface AttachMapper {
 	int deleteUpload(int num);
 	
 	int getIndex();
+	
+	//공지사항 관련
+	int insertNoticeMultiAttach(List<Attach> attList);
+	List<Attach> getNoticeFileList(int pcodeMac);
+	String getNoticeFname(int num);
+	
 
 }

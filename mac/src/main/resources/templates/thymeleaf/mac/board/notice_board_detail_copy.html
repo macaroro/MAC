@@ -28,6 +28,9 @@
 <link rel="stylesheet" type="text/css" href="/main/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
 </script>
+<script type="text/javascript">
+var idMac = '[[${idMac}]]';
+</script>
 </head>
 <body>
 <main>
@@ -99,6 +102,15 @@
 		</div>
 		<div class="board-body">
 			<span th:text="${board.contentsMac}"></span>
+			<div style="border-top: solid; margin-top: 22%">
+						<span th:if="${fileindex!=0}">
+							<tr th:each="file : ${filelist}">
+								<li th:text="${file.fileNameMac}"></li>
+								<button th:onclick="javascript:noticeFiledownload([[${file.numMac}]]);">↓</button>
+									
+								</tr>
+						</span>
+					</div>
 		</div>
 	</div>
 	<br>
@@ -121,6 +133,7 @@
 <script src="/main/lib/owlcarousel/owl.carousel.min.js"></script>
 <!-- Template Javascript -->
 <script src="/main/js/main.js"></script>
+<script src="/main/js/board.js"></script>
 </body>
 
 </html>

@@ -2,7 +2,10 @@ package com.mac.demo.service;
 
 import java.awt.print.Pageable;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,8 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.authenticator.SavedRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.convert.SimplePropertyValueConversions;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +46,9 @@ public class BoardService {
 	
 	@Autowired
 	private AttachMapper attachDao;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
 //	------------------List-------------------
 	public List<Board> getFreeList(){
@@ -153,50 +164,30 @@ public class BoardService {
 		return res==attList.size();
 	}
 	
+//	public boolean update(List<Attach> attList) {
+//		System.out.println("BoardService : " + attList.get(0).getFileNameMac());
+//		int res = attachDao.updateMultiAttach(attList);
+//		System.out.println(res + "개 업로드성공(update)");
+//
+//		return res==attList.size();
+//	}
+//	
 	public List<Attach> getFileList(int pcodeMac){
 		return attachDao.getFileList(pcodeMac);
 	}
 	
-//	public List<Attach> getList() {
-//		List<Map<String,Object>> list = attchDao.getList();
-//		List<Attach> volist = new ArrayList<>();
-//		
-//		for(int i=0; i<list.size(); i++) {
-//			Map<String, Object> map = list.get(i);
-//			
-//			String fname = (String) map.get("FNAME");
-//			
-//			Attach attvo = null;
-//			
-//			if(fname != null) {
-//				attvo = new Attach();
-//				int fnum = ((BigDecimal)map.get("FNUM")).intValue();
-//				attvo.setNum(fnum);
-//				attvo.setFname(fname);
-//			}
-//			
-//			Attach vo = new Attach();
-//			int num = ((BigDecimal)map.get("NUM")).intValue();
-//			vo.setNum(num);
-//			
-//			if(volist.contains(vo)) {
-//				volist.get(volist.size()-1).getAttach().add(attvo);
-//			} else {
-//				String writer = (String) map.get("WRITER");
-//				Date udate = new Date(((Timestamp)map.get("UDATE")).getTime());
-//				String comments = (String) map.get("COMMENTS");
-//				
-//				vo.setUdate(udate);
-//				vo.getAttach().add(attvo);
-//				
-//				volist.add(vo);
-//			}
-//		}
-//		return volist;
-//	}
+	//공지사항 파일 리스트
+	public List<Attach> getNotcieFileList(int pcodeMac) {
+		return attachDao.getNoticeFileList(pcodeMac);
+	}
+
 
 	public String getFname(int num) {
 		String fname = attachDao.getFname(num);
+		return fname;
+	}
+	public String getNoticeFname(int num) {
+		String fname = attachDao.getNoticeFname(num);
 		return fname;
 	}
 
@@ -212,24 +203,16 @@ public class BoardService {
 			Date udate = new Date(((Timestamp)map.get("UDATE")).getTime());
 			String comments = (String)map.get("COMMENTS");
 			
-//			vo.setNum(num);
-//			vo.setWriter(writer);
-//			vo.setUdate(udate);
-//			vo.setComments(comments);
-			
 			String fname = (String)map.get("FNAME");
 			
 			if(fname != null) {
 				Attach attvo = new Attach();
 				int fnum = ((BigDecimal)map.get("FNUM")).intValue();
-//				attvo.setNum(fnum);
-//				attvo.setFname(fname);
-//				vo.getAttach().add(attvo);
 			}
 		}
-//		return vo;
 		return null;
 	}
+	
 
 	public boolean filedelete(int num) {
 		int removed = attachDao.filedelete(num);
@@ -286,6 +269,62 @@ public class BoardService {
 		return totalSuccess==attList.size();
 	}
 	
+	public ResponseEntity<Resource> download (HttpServletRequest request, int FileNum) throws Exception{
+		String filename = getFname(FileNum);
+		String originFilename = URLDecoder.decode(filename, "UTF-8");
+		Resource resource = resourceLoader.getResource("WEB-INF/files/" + originFilename);
+		System.out.println("파일명:" + resource.getFilename());
+		String contentType = null;
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+//			System.out.println(contentType); // return : image/jpeg
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (contentType == null) {
+			contentType = "application/octet-stream";
+		}
+		
+		ResponseEntity<Resource> file =  ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+				// HttpHeaders.CONTENT_DISPOSITION는 http header를 조작하는 것, 화면에 띄우지 않고 첨부화면으로
+				// 넘어가게끔한다
+				// filename=\"" + resource.getFilename() + "\"" 는 http프로토콜의 문자열을 고대로 쓴 것
+				.body(resource);
+		
+		return file;
+	}
+	
+	//공지사항 다운로드
+	public ResponseEntity<Resource> noticeDownload(HttpServletRequest request, int fileNum) throws Exception {
+		String filename = getNoticeFname(fileNum);
+		String originFilename = URLDecoder.decode(filename, "UTF-8");
+		Resource resource = resourceLoader.getResource("WEB-INF/files/" + originFilename);
+		System.out.println("파일명:" + resource.getFilename());
+		String contentType = null;
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+//			System.out.println(contentType); // return : image/jpeg
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (contentType == null) {
+			contentType = "application/octet-stream";
+		}
+		
+		ResponseEntity<Resource> file =  ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+				// HttpHeaders.CONTENT_DISPOSITION는 http header를 조작하는 것, 화면에 띄우지 않고 첨부화면으로
+				// 넘어가게끔한다
+				// filename=\"" + resource.getFilename() + "\"" 는 http프로토콜의 문자열을 고대로 쓴 것
+				.body(resource);
+		
+		return file;
+	}
+	
+
 	
 //	------------------------PAGE------------------------
 	public int[] getLinkRange(Page<Board> pageInfo) {
@@ -307,6 +346,10 @@ public class BoardService {
 		return new int[] { start, end };
 	}
 
+
+
+	
+	
 
 	
 

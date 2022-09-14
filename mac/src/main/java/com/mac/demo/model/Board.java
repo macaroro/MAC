@@ -1,7 +1,5 @@
 package com.mac.demo.model;
 
-import java.sql.Date;
-
 public class Board {
 
 	private int numMac; //번호
@@ -12,7 +10,7 @@ public class Board {
 	private String typeMac; //속성(업종등)
 	private String idMac;
 	private int countMac;
-	private String tableMac;
+	private String kindMac;
 
 	
 	
@@ -64,11 +62,12 @@ public class Board {
 	public void setIdMac(String idMac) {
 		this.idMac = idMac;
 	}
-	public String getTableMac() {
-		return tableMac;
+
+	public String getKindMac() {
+		return kindMac;
 	}
-	public void setTableMac(String tableMac) {
-		this.tableMac = tableMac;
+	public void setKindMac(String kindMac) {
+		this.kindMac = kindMac;
 	}
 
 	

@@ -3,10 +3,13 @@ package com.mac.demo.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.mac.demo.mappers.AttachMapper;
 import com.mac.demo.mappers.BoardMapper;
+import com.mac.demo.model.Attach;
 import com.mac.demo.model.Board;
 import com.mac.demo.model.Comment;
 import com.mac.demo.model.User;
@@ -19,6 +22,12 @@ public class AdminService {
 	
 	@Autowired 
 	private BoardMapper bao;
+	
+	@Autowired
+	private AttachMapper attachDao;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
 
     //모든 유저
@@ -54,6 +63,13 @@ public class AdminService {
 	//공지사항 저장
 	public int save(Board board) {
 		return dao.saveNotice(board);
+	}
+	public boolean attachinsert(List<Attach> attList) {
+		System.out.println("BoardService : " + attList.get(0).getFileNameMac());
+		int res = attachDao.insertNoticeMultiAttach(attList);
+		System.out.println(res + "개 업로드성공");
+
+		return res==attList.size();
 	}
 
 	//공지사항 리스트
@@ -119,5 +135,7 @@ public class AdminService {
 	public List<User> getUserListByKeyword(String keyword) {
 		return dao.getUserListByKeyword(keyword);
 	}
+
+	
 
 }

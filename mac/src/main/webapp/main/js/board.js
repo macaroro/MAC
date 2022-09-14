@@ -237,3 +237,25 @@ function filedelete(num){
 	});
 	return false;
 }(jQuery);
+
+
+function noticeFiledownload(filenum){
+	$.ajax({
+		method:'get',
+		async: false,
+		cache:false,
+		contentType : 'application/json; charset=utf-8',
+		success:function(res){
+			if(idMac == ''){
+				alert("로그인 후 다운로드 가능합니다.");
+				return;
+			} else {
+				location.href='/board/noticeFile/download/'+filenum;
+			}
+		},
+		error:function(xhr,status,err){
+			alert(err);
+		}
+	});
+	return;
+}(jQuery);

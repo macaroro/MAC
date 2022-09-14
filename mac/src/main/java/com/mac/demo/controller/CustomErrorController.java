@@ -34,15 +34,5 @@ public class CustomErrorController implements ErrorController {
 		}else {
 			return "thymeleaf/mac/error/500error";
 		}
-}
-	
-	@RequestMapping("/error2")
-	public String error2() {
-		return "thymeleaf/mac/error/404error";
-	}
-	
-	@RequestMapping("/error3")
-	public String error3() {
-		return "thymeleaf/mac/error/405error";
 	}
 }

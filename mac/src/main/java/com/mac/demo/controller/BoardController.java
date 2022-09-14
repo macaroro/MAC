@@ -2,7 +2,11 @@ package com.mac.demo.controller;
 
 import java.awt.print.Pageable;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mac.demo.model.Attach;
@@ -32,12 +42,16 @@ import com.mac.demo.model.Board;
 import com.mac.demo.model.Comment;
 import com.mac.demo.service.BoardService;
 
+
 @RequestMapping("/board")
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardService svc;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
 //	커뮤니티메인화면
 	@GetMapping("/main")
@@ -96,7 +110,6 @@ public class BoardController {
 									HttpServletRequest request) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		Attach att = new Attach();
 		
 		ServletContext context = request.getServletContext();
 		String savePath = context.getRealPath("/WEB-INF/files");
@@ -104,31 +117,27 @@ public class BoardController {
 		
 		// 파일 VO List
 		List<Attach> attList = new ArrayList<>();
+		
+		// 업로드
 		try {
-			// 업로드
-
 			for (int i = 0; i < mfiles.length; i++) {
 				// mfiles 파일명 수정
 				String[] token = mfiles[i].getOriginalFilename().split("\\.");
 				fname_changed = token[0] + "_" + System.nanoTime() + "." + token[1];
 				
-				// Attach 객체 만들어서 가공
-				Attach _att = new Attach();
-				_att.setIdMac(board.getIdMac());
-				_att.setNickNameMac(svc.getOne(board.getIdMac()).getNickNameMac());
-				_att.setFileNameMac(fname_changed);
-				_att.setFilepathMac(savePath);
+					// Attach 객체 만들어서 가공
+					Attach _att = new Attach();
+					_att.setIdMac(board.getIdMac());
+					_att.setNickNameMac(svc.getOne(board.getIdMac()).getNickNameMac());
+					_att.setFileNameMac(fname_changed);
+					_att.setFilepathMac(savePath);
 				
 				attList.add(_att);
 
-				mfiles[i].transferTo( // 메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+//				메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+				mfiles[i].transferTo(
 						new File(savePath + "/" + fname_changed));
 			}
-			att.setNickNameMac(svc.getOne(board.getIdMac()).getNickNameMac());
-			att.setFileNameMac(fname_changed);
-			att.setFilepathMac(savePath);
-			att.setAttListMac(attList);
-			
 			svc.insert(attList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,8 +222,12 @@ public class BoardController {
 			model.addAttribute("board", svc.getAdsDetail(num));
 			linkpath = "thymeleaf/mac/board/ads_board_detail_copy";
 		} else if(board_kind.contentEquals("notice")) {
+			List<Attach> noticeFilelist = svc.getNotcieFileList(num);
+			model.addAttribute("filelist", noticeFilelist);
+			model.addAttribute("fileindex", noticeFilelist.size());
 			model.addAttribute("board", svc.getNoticeDetail(num));
 			linkpath = "thymeleaf/mac/board/notice_board_detail_copy";
+			return linkpath;
 		}
 		
 		// 페이지네이션
@@ -238,33 +251,97 @@ public class BoardController {
 	
 //  게시글 삭제
 //	PostMapping 방식으로 form 밖에 있는 데이터를 넘기지 못해 get으로 우선 구현
-	@GetMapping("/free/delete/{num}")
+	@GetMapping("/{board_kind}/delete/{num}")
 	@ResponseBody
-	public Map<String, Object> delete(@PathVariable("num") int num) {
+	public Map<String, Object> delete(@PathVariable("num") int num,
+									  @PathVariable("board_kind") String board_kind) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		
-		map.put("deleted", svc.Freedelete(num));
-		map.put("commetdeleted", svc.freeCommentAllDelete(num));
+		if (board_kind.equals("free")) {
+			map.put("deleted", svc.Freedelete(num));
+			map.put("commetdeleted", svc.freeCommentAllDelete(num));
+		} else if (board_kind.equals("ads")) {
+			map.put("deleted", svc.Adsdelete(num));
+			map.put("commetdeleted", svc.adsCommentAllDelete(num));
+		}
 		return map;
 	}
 	
 //  게시글 업데이트폼
-	@GetMapping("/free/update/{num}")
-	public String update(@PathVariable("num") int num, Model model) {
-		model.addAttribute("board", svc.getFreeDetail(num));
-		return "thymeleaf/mac/board/free_updateform";
+	@GetMapping("/{board_kind}/update/{num}")
+	public String update(@PathVariable("num") int num, 
+						 Model model,
+						 @PathVariable("board_kind") String board_kind) {
+		
+//		{board_kind}에 따른 html경로 변수 초기화
+		String linkpath = null;
+		
+		if (board_kind.equals("free")) {
+			model.addAttribute("board", svc.getFreeDetail(num));
+			linkpath = "thymeleaf/mac/board/free_updateform";
+		} else if (board_kind.equals("ads")) {
+			model.addAttribute("board", svc.getAdsDetail(num));
+			linkpath = "thymeleaf/mac/board/ads_updateform";
+		}
+		
+		List<Attach> filelist = svc.getFileList(num);;
+		
+		model.addAttribute("filelist", filelist);
+		model.addAttribute("fileindex", filelist.size());
+		
+		return linkpath;
 	}
 	
 //  게시글 수정
-	@PostMapping("/free/edit")
-	@ResponseBody
-	public Map<String, Object> edit(Board newBoard) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("updated", svc.Freeedit(newBoard));
-		return map;
-	}
+//	@PostMapping("/{board_kind}/edit")
+//	@ResponseBody
+//	public Map<String, Object> edit(Board newBoard,
+//									@RequestParam("files") MultipartFile[] mfiles,
+//									@PathVariable("board_kind") String board_kind,
+//									HttpServletRequest request) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		if (board_kind.equals("free")) {
+//			map.put("updated", svc.Freeedit(newBoard));
+//		} else if (board_kind.equals("ads")) {
+//			map.put("updated", svc.Adsedit(newBoard));
+//		}
+//		
+//		ServletContext context = request.getServletContext();
+//		String savePath = context.getRealPath("/WEB-INF/files");
+//		String fname_changed = null;
+//		
+//		// 파일 VO List
+//		List<Attach> attList = new ArrayList<>();
+//		
+//		// 업로드
+//		try {
+//			for (int i = 0; i < mfiles.length; i++) {
+//				// mfiles 파일명 수정
+//				String[] token = mfiles[i].getOriginalFilename().split("\\.");
+//				fname_changed = token[0] + "_" + System.nanoTime() + "." + token[1];
+//				
+//					// Attach 객체 만들어서 가공
+//					Attach _att = new Attach();
+//					_att.setPcodeMac(newBoard.getNumMac());
+//					_att.setIdMac(newBoard.getIdMac());
+//					_att.setNickNameMac(svc.getOne(newBoard.getIdMac()).getNickNameMac());
+//					_att.setFileNameMac(fname_changed);
+//					_att.setFilepathMac(savePath);
+//				
+//				attList.add(_att);
+//
+////				메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+//				mfiles[i].transferTo(
+//						new File(savePath + "/" + fname_changed));
+//			}
+//			svc.update(attList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return map;
+//	}
 	
 	
 //	게시글 타이틀 검색
@@ -308,54 +385,6 @@ public class BoardController {
 		return linkpath;
 	}
 	
-	
-	
-//======================================== 광고게시판 ========================================
-
-//  게시글 삭제
-//	PostMapping 방식으로 form 밖에 있는 데이터를 넘기지 못해 get으로 우선 구현
-	@GetMapping("/ads/delete/{num}")
-	@ResponseBody
-	public Map<String, Object> delete_ads(@PathVariable("num") int num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		svc.adsCommentAllDelete(num);
-		map.put("deleted", svc.Adsdelete(num));
-		map.put("commetdeleted", svc.adsCommentAllDelete(num));
-		return map;
-	}
-	
-//  게시글 업데이트폼
-	@GetMapping("/ads/update/{num}")
-	public String update_ads(@PathVariable("num") int num, Model model) {
-		model.addAttribute("board", svc.getAdsDetail(num));
-		return "thymeleaf/mac/board/ads_updateform";
-	}
-	
-//  게시글 수정
-	@PostMapping("/ads/edit")
-	@ResponseBody
-	public Map<String, Object> edit_ads(Board newBoard) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("updated", svc.Adsedit(newBoard));
-		return map;
-	}
-	
-//	광고게시글 저장
-	@PostMapping("/ads/save")
-	@ResponseBody
-	public Map<String, Object> save_ads(Board board, @SessionAttribute(name = "idMac", required = false) String idMac) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		svc.saveToAds(board);
-		map.put("saved",board.getNumMac());
-		//insert 후 시퀸스의 값을 가져와 map에 넣은뒤 다시 폼으로
-		//그후 그 번호를 가지고 detail로 넘어가독
-		//자세한건 form에 ajax 확인
-		
-		return map;
-	}
-
 //======================================== 댓글 ========================================
 	@PostMapping("/comment")
 	@ResponseBody
@@ -380,15 +409,32 @@ public class BoardController {
 		map.put("deleted", svc.commentdelete(numMac));
 		return map;
 	}
-//=====================================================================================
+//======================================== 파일 ========================================
 	
 	@GetMapping("/file/delete/{numMac}")
 	@ResponseBody
-	public Map<String, Object> file_delte(@PathVariable int numMac, Model model, HttpSession session) {
+	public Map<String, Object> file_delte(@PathVariable("numMac") int numMac, 
+										  Model model, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		System.out.println("삭제할 파일 No. : " + numMac);
 		map.put("filedeleted", svc.filedelete(numMac));
 		return map;
+	}
+	
+	@GetMapping("/file/download/{filenum}")
+	@ResponseBody
+	public ResponseEntity<Resource> download(HttpServletRequest request,
+											 @PathVariable(name="filenum", required = false) int FileNum) throws Exception {
+		
+		return svc.download(request, FileNum);
+	}
+	
+	@GetMapping("/noticeFile/download/{filenum}")
+	@ResponseBody
+	public ResponseEntity<Resource> noticeDownload(HttpServletRequest request,
+											 @PathVariable(name="filenum", required = false) int FileNum) throws Exception {
+		
+		return svc.noticeDownload(request, FileNum);
 	}
 }

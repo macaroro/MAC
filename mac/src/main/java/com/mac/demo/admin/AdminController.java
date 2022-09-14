@@ -1,10 +1,13 @@
 package com.mac.demo.admin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mac.demo.model.Attach;
 import com.mac.demo.model.Board;
 import com.mac.demo.model.Comment;
 import com.mac.demo.model.User;
@@ -132,11 +137,46 @@ public class AdminController {
 		return "thymeleaf/mac/admin/writeNotice";
 	}
 	
-	//공지사항 저장
+	//공지사항 저장(파일 추가)
 	@PostMapping("/admin/save")
 	@ResponseBody
-	public Map<String, Object> save(Board board) {
+	public Map<String, Object> save(Board board,@RequestParam("files") MultipartFile[] mfiles,HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ServletContext context = request.getServletContext();
+		String savePath = context.getRealPath("/WEB-INF/files");
+		String fname_changed = null;
+		
+		// 파일 VO List
+		List<Attach> attList = new ArrayList<>();
+		
+		// 업로드
+		try {
+			for (int i = 0; i < mfiles.length; i++) {
+				// mfiles 파일명 수정
+				String[] token = mfiles[i].getOriginalFilename().split("\\.");
+				fname_changed = token[0] + "_" + System.nanoTime() + "." + token[1];
+				
+					// Attach 객체 만들어서 가공
+					Attach _att = new Attach();
+					_att.setIdMac(board.getIdMac());
+					System.out.println(board.getIdMac());
+					_att.setNickNameMac(board.getNickNameMac());
+					System.out.println(board.getNickNameMac());
+					_att.setFileNameMac(fname_changed);
+					_att.setFilepathMac(savePath);
+				
+				attList.add(_att);
+
+//				메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+				mfiles[i].transferTo(
+						new File(savePath + "/" + fname_changed));
+			}
+			svc.attachinsert(attList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		map.put("saved",svc.save(board)>0);
 		return map;
 	}

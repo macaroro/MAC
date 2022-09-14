@@ -42,7 +42,6 @@ public class BigdataController {
 			List<String> gulist = svc.getgu(kind);
 			//html 해석하게 수정
 			List<String> gulist2 = new ArrayList<>();
-			String dong = null;
 			for(int i=0; i<gulist.size(); i++) {
 				String gu2 = "<option>"+gulist.get(i)+"</option>";
 				gulist2.add(gu2);
