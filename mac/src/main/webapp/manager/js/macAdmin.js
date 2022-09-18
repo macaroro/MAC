@@ -1,4 +1,4 @@
-    var token = $("#_csrf").attr("content");
+	var token = $("#_csrf").attr("content");
 	var header = $("#_csrf_header").attr("content");
 	
 	$(function() {
@@ -6,8 +6,6 @@
 	        xhr.setRequestHeader(header, token);
 	    });
 	});
-	
-
 
 
 function noticeDelete(numMac)
@@ -124,9 +122,8 @@ function save() {
 		});
 		return false;
 	}(jQuery);
-	
-	
 
+	
 	function commentDelete(numMac)
 
     {
@@ -147,3 +144,6 @@ function save() {
 	});
 	return false;
 }(jQuery);
+
+
+

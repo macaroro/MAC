@@ -92,9 +92,7 @@ public class BoardController {
 			linkpath = "thymeleaf/mac/board/free_inputform";
 		} else if(board_kind.contentEquals("ads")) {
 			linkpath = "thymeleaf/mac/board/ads_inputform";
-		} else if(board_kind.contentEquals("notice")) {
-			linkpath = "thymeleaf/mac/board/notice_inputform";
-		}
+		} 
 		
 		return linkpath;
 	}
@@ -178,10 +176,7 @@ public class BoardController {
 		} else if (board_kind.contentEquals("ads")) {
 			pageInfo = new PageInfo<>(svc.getAdsList());
 			linkpath = "thymeleaf/mac/board/ads_boardList_copy";
-		} else if (board_kind.contentEquals("notice")) {
-			pageInfo = new PageInfo<>(svc.getNoticeList());
-			linkpath = "thymeleaf/mac/board/notice_boardList_copy";
-		}
+		} 
 		
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -221,13 +216,6 @@ public class BoardController {
 		} else if(board_kind.contentEquals("ads")) {
 			model.addAttribute("board", svc.getAdsDetail(num));
 			linkpath = "thymeleaf/mac/board/ads_board_detail_copy";
-		} else if(board_kind.contentEquals("notice")) {
-			List<Attach> noticeFilelist = svc.getNotcieFileList(num);
-			model.addAttribute("filelist", noticeFilelist);
-			model.addAttribute("fileindex", noticeFilelist.size());
-			model.addAttribute("board", svc.getNoticeDetail(num));
-			linkpath = "thymeleaf/mac/board/notice_board_detail_copy";
-			return linkpath;
 		}
 		
 		// 페이지네이션
@@ -370,14 +358,7 @@ public class BoardController {
 			} else {
 				pageInfo = new PageInfo<>(svc.getAdsListByNickName(keyword));
 			}
-		} else if(board_kind.contentEquals("notice")) {
-			linkpath = "thymeleaf/mac/board/notice_boardList_copy";
-			if(category.equals("contents")) {
-				pageInfo = new PageInfo<>(svc.getAdsListByKeyword(keyword));
-			} else {
-				pageInfo = new PageInfo<>(svc.getAdsListByNickName(keyword));
-			}
-		}
+		} 
 		
 		model.addAttribute("pageInfo",pageInfo);
 		model.addAttribute("page", page);
@@ -430,11 +411,5 @@ public class BoardController {
 		return svc.download(request, FileNum);
 	}
 	
-	@GetMapping("/noticeFile/download/{filenum}")
-	@ResponseBody
-	public ResponseEntity<Resource> noticeDownload(HttpServletRequest request,
-											 @PathVariable(name="filenum", required = false) int FileNum) throws Exception {
-		
-		return svc.noticeDownload(request, FileNum);
-	}
+
 }

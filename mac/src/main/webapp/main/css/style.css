@@ -26,7 +26,6 @@
 
 .board-header {
     margin-bottom: 15px;
-    /* background-color: yellow; */
     padding-bottom: 5px;
     border-bottom: 1px solid #eee
 }
@@ -596,7 +595,7 @@ div#myPageWrite {
     
     
     
-    div#writetable {
+ div#writetable {
     padding: 10px;
     width: 650px;
     height: 345px;
@@ -613,12 +612,12 @@ a#write {
       margin-left: 30%;
       margin-top: -9%}
 
-
-
-footer#boardfooter {
-    position: relative;
-    top: 500px;
+form.noticesearch{
+	margin-top: -19%;
+	margin-left: 21%;
 }
+
+
 
 /*** bigdata***/
 span#seletedata {

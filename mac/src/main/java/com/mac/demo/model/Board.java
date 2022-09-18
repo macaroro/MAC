@@ -10,7 +10,7 @@ public class Board {
 	private String typeMac; //속성(업종등)
 	private String idMac;
 	private int countMac;
-	private String kindMac;
+	private String categoryMac;
 
 	
 	
@@ -62,13 +62,14 @@ public class Board {
 	public void setIdMac(String idMac) {
 		this.idMac = idMac;
 	}
+	public String getCategoryMac() {
+		return categoryMac;
+	}
+	public void setCategoryMac(String categoryMac) {
+		this.categoryMac = categoryMac;
+	}
 
-	public String getKindMac() {
-		return kindMac;
-	}
-	public void setKindMac(String kindMac) {
-		this.kindMac = kindMac;
-	}
+
 
 	
 	
