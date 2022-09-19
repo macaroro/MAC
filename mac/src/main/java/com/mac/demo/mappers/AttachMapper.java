@@ -15,19 +15,20 @@ public interface AttachMapper {
 //	int insertUpload(Fileupload vo);
 	
 	int insertAttach(Attach att);
-
-
+	
 	List<Map<String, Object>> getList();
 	
 	String getFname(int num);
 	
 	List<Attach> getFileList(int pcodeMac);
-
+	
 	List<Map<String, Object>> getDetailByNum(int num);
 
 	int filedelete(int num);
 	
 	int insertMultiAttach(List<Attach> list);
+	
+	int updateMultiAttach(List<Attach> list);
 
 	List<String> getAttachByPnum(int num);
 
@@ -36,11 +37,5 @@ public interface AttachMapper {
 	int deleteUpload(int num);
 	
 	int getIndex();
-	
-	//공지사항 관련
-	int insertNoticeMultiAttach(List<Attach> attList);
-	List<Attach> getNoticeFileList(int pcodeMac);
-	String getNoticeFname(int num);
-	
 
 }

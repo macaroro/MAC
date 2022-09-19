@@ -3,29 +3,17 @@
 
 	<mapper namespace="com.mac.demo.mappers.AttachMapper">
 	
-	<!-- <insert id="insertUpload" parameterType="com.mac.demo.model.Fileupload">
-	<selectKey> 안에 있는 SELECT 문장이 먼저(BEFORE) 실행되어 upload_num.NEXTVAL 값이 추출되어 keyProperty="num" 으로 지시되는 UploadVO.num 에 할당된다.
-	      <selectKey keyProperty="num" resultType="integer" order="BEFORE">
-	       시퀀스 값을 가져오는 것
-	          	SELECT upload_num.NEXTVAL FROM DUAL
-	      </selectKey>
-				INSERT INTO upload_tb(num, writer, udate, comments) 
-				VALUES(#{num}, #{writer}, sysdate, #{comments})
-	</insert> -->
 	
 	<insert id="insertAttach" parameterType="com.mac.demo.model.Attach">
 				INSERT INTO ATTACH(NUMMAC, PCODEMAC, IDMAC, NICKNAMEMAC, WDATEMAC, FILENAMEMAC, FILEPATHMAC) 
 				VALUES(attach_num.NEXTVAL, #{pcodeMac}, #{idMac}, #{nickNameMac}, #{wdateMac}, #{fileNameMac}, #{filepathMac})
 	</insert>
 	
-
 	<select id="getIndex" resultType="Integer">
 		SELECT MAX(NUMMAC) 
 		FROM
 		(
-		SELECT NUMMAC FROM free_board
-		UNION
-		SELECT NUMMAC FROM ads_board
+		SELECT NUMMAC FROM board
 		)
 	</select>
 	
@@ -35,18 +23,6 @@
 		WHERE PCODEMAC=#{pcodeMac}
 	</select>
 	
-	<select id="getNoticeFileList" parameterType="Integer" resultType="com.mac.demo.model.Attach">
-		SELECT *
-		FROM NOTICE_ATTACH
-		WHERE PCODEMAC=#{pcodeMac}
-	</select>
-	
-	<select id="getList" resultType="map">
-				SELECT u.num AS num, writer, udate, comments, a.num AS fnum, pnum, fname
-				  FROM upload_tb u
-	   LEFT OUTER JOIN attach_tb a
-		            ON u.num=a.pnum
-	</select>
 	
 	<select id="getFname" parameterType="Integer" resultType="String">
 				SELECT filenamemac
@@ -54,34 +30,17 @@
 				 WHERE numMac=#{numMac}
 	</select>
 	
-		<select id="getNoticeFname" parameterType="Integer" resultType="String">
-				SELECT filenamemac
-				  FROM notice_attach
-				 WHERE numMac=#{numMac}
-	</select>
-	
-	<select id="getDetailByNum" parameterType="Integer" resultType="map">
-				SELECT u.num AS num, writer, udate, comments, a.num AS fnum, fname
-				  FROM upload_tb u
-	   LEFT OUTER JOIN attach_tb a
-				    ON u.num = a.pnum
-				 WHERE u.num=#{num}
-	</select>
-	
 	<delete id="filedelete" parameterType="Integer">
 				DELETE FROM ATTACH WHERE NUMMAC=#{num}
 	</delete>
 	
+	<!-- 신규 글쓰기폼에서 FILE INSERT -->
 	<update id="insertMultiAttach" parameterType="java.util.List">
 		<selectKey keyProperty="num" resultType="integer" order="BEFORE">
 	    	<!--  현재 인덱스 값을 가져오는 것 -->
-	        SELECT MAX(NUMMAC)+1
-			FROM
-			(
-			SELECT NUMMAC FROM free_board
-			UNION
-			SELECT NUMMAC FROM ads_board
-			)
+	        SELECT CASE WHEN MAX(NUMMAC)+1 is null THEN 1
+                    ELSE MAX(NUMMAC) END
+            FROM BOARD
 	    </selectKey>
 	    
     	INSERT INTO ATTACH (NUMMAC, PCODEMAC, IDMAC, NICKNAMEMAC, WDATEMAC, FILENAMEMAC, FILEPATHMAC)
@@ -93,39 +52,16 @@
     	) t
 	</update>
 	
-	
-	<!--  공지사항 attach에 넣기 -->
-		<update id="insertNoticeMultiAttach" parameterType="java.util.List">
-		<selectKey keyProperty="num" resultType="integer" order="BEFORE">
-	    	<!--  현재 인덱스 값을 가져오는 것 -->
-	         SELECT CASE WHEN MAX(NUMMAC)+1 is null THEN 1
-                    ELSE MAX(NUMMAC)+1 END
-               FROM NOTICE_BOARD
-	    </selectKey>
+	<!-- 수정폼에서 FILE UPDATE -->
+	<insert id="updateMultiAttach" parameterType="java.util.List">
 	    
-    	INSERT INTO NOTICE_ATTACH (NUMMAC, PCODEMAC, IDMAC, NICKNAMEMAC, WDATEMAC, FILENAMEMAC, FILEPATHMAC)
-    	SELECT NOTICE_ATTACH_NUM.NEXTVAL, t.* FROM
+    	INSERT INTO ATTACH (NUMMAC, PCODEMAC, IDMAC, NICKNAMEMAC, WDATEMAC, FILENAMEMAC, FILEPATHMAC)
+    	SELECT ATTACH_NUM.NEXTVAL, t.* FROM
     	(
     	<foreach collection="list" item="item" index="index" separator="union all">
-			SELECT #{num}, #{item.idMac}, #{item.nickNameMac}, SYSDATE, #{item.fileNameMac}, #{item.filepathMac} FROM DUAL
+			SELECT #{item.pcodeMac}, #{item.idMac}, #{item.nickNameMac}, SYSDATE, #{item.fileNameMac}, #{item.filepathMac} FROM DUAL
     	</foreach>
     	) t
-	</update>
+	</insert>
 	
-	
-	
-	
-	<delete id="deleteAttach" parameterType="Integer">
-		DELETE FROM attach_tb WHERE num=#{num}
-	</delete>
-	
-	<select id="getAttachByPnum" parameterType="Integer" resultType="String">
-		DELETE FROM attach_tb WHERE num=#{num}
-	</select>
-	
-	<delete id="deleteAttInfo" parameterType="Integer">
-		DELETE FROM attach_tb WHERE pnum=#{num}
-	</delete>
-	
-
 </mapper>

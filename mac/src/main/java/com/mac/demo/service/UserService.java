@@ -94,7 +94,7 @@ public class UserService {
 	}
 
 	public List<Board> findWrite(String idMac) {
-	
+		System.out.println("111");
 		return dao.findWrite(idMac);
 		
 		

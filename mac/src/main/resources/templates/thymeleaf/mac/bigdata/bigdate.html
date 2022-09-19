@@ -34,9 +34,6 @@
 <link rel="stylesheet" type="text/css" href="/main/css/map.css">
 
 
-
-	
-
 </head>
 <body>
 	<!-- Navbar & Carousel (상단바) Start -->
@@ -94,36 +91,31 @@
         </div>
         
 	</header>
-		<br>
-		<br>
-		<br>
+		<br><br><br>
 <!-- Navbar & Carousel End -->
 
-		<span id="seletedata">
-	<button onclick="dataTable('sales')" class="btn btn-primary py-2 px-4 ms-3">예상 매출 데이터</button>
-	<button onclick="dataTable('population')" class="btn btn-primary py-2 px-4 ms-3">유동인구 데이터</button>
-	<button onclick="dataTable('store')" class="btn btn-primary py-2 px-4 ms-3">점포 데이터</button>
-</span>
+<center id="seletedata">
+	<br><br><br><br>
+	<button onclick="dataTable('sales')" class="btn btn-primary py-2 px-4 ms-3 btn-lg">예상 매출 데이터</button>
+	<button onclick="dataTable('population')" class="btn btn-primary py-2 px-4 ms-3 btn-lg">유동인구 데이터</button>
+	<button onclick="dataTable('store')" class="btn btn-primary py-2 px-4 ms-3 btn-lg">점포 데이터</button>
+</center>
 
-
-
-		<div class="map">
-
-
+	<div class="map">
    <div id="location" class="paraent">
 	    <div>
 	    <h5>구</h5>
-		<select id="gu" onChange="javascript:guevent()" ></select>
+		<select id="gu" onChange="javascript:guevent()" ><option>-- 구를 선택해주세요 --</option></select>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div>
 		<h5>동</h5>
-		<select id="dong" onChange="javascript:dongevent()" ></select>
+		<select id="dong" onChange="javascript:dongevent()" ><option>-- 구를 선택해주세요 --</option></select>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div>
 		<h5>골목길</h5>
-		<select id="gil" onChange="javascript:gilevent()" ></select>
+		<select id="gil" onChange="javascript:gilevent()" ><option>-- 구를 선택해주세요 --</option></select>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
@@ -145,7 +137,7 @@
 	<br>
 	<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-		    <div>
+		    <center>
 		        <form id="data" onsubmit="return flask();">
 		        	<input type="hidden" id="dataKind" name="dataKind">
 		        	<input type="hidden" id="trdar_name" name="trdar_name">
@@ -158,7 +150,7 @@
 		            </select>
 		        <button id="data_serch" type="submit" class="btn btn-primary py-2 px-4 ms-3">데이터 검색</button>
 		        </form>
-		    </div>
+		    </center>
 		    <br>
 			<br>    
 			
@@ -168,7 +160,7 @@
     	   <h3 id="sotre_count"></h3>
 		   <div class="container-fluid ">
                 <div id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">요일별</h6>
@@ -182,10 +174,10 @@
 
              <div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">시간별</h6>
+                                <h6 class="mb-0">시간대별</h6>
                             </div>
                             <canvas id="sales2"></canvas>
                         </div>
@@ -197,12 +189,12 @@
            
              <div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">성별</h6>
                             </div>
-                            <canvas id="sales3"></canvas>
+                            <canvas id="sales3" width="500" height="200"></canvas>
                         </div>
                     </div>
                   
@@ -211,7 +203,7 @@
 			
 			<div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">연령별</h6>
@@ -229,36 +221,23 @@
             <h3 id="population_count"></h3>
             <div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">성별 생활인구 수</h6>
+                                <h6 class="mb-0">요일별</h6>
                             </div>
-                            <canvas id="pupulation1"></canvas>
+                            <canvas id="pupulation4"></canvas>
                         </div>
                     </div>
                   
                 </div>
-            </div>	
+            </div>
             <div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">연령별 생활인구 수</h6>
-                            </div>
-                            <canvas id="pupulation2"></canvas>
-                        </div>
-                    </div>
-                  
-                </div>
-            </div>	
-            <div class="container-fluid ">
-                <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">시간대별 생활인구 수</h6>
+                                <h6 class="mb-0">시간대별</h6>
                             </div>
                             <canvas id="pupulation3"></canvas>
                         </div>
@@ -268,17 +247,32 @@
             </div>
             <div class="container-fluid ">
                 <div  id="mapdata">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-10">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">요일별 생활인구 수</h6>
+                                <h6 class="mb-0">성별</h6>
                             </div>
-                            <canvas id="pupulation4"></canvas>
+                            <canvas id="pupulation1" width="500" height="200"></canvas>
                         </div>
                     </div>
                   
                 </div>
-            </div>
+            </div>	
+            <div class="container-fluid ">
+                <div  id="mapdata">
+                    <div class="col-sm-12 col-xl-10">
+                        <div class="bg-light text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">연령별</h6>
+                            </div>
+                            <canvas id="pupulation2"></canvas>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>	
+            
+            
             
             </div>
             

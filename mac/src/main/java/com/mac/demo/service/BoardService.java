@@ -1,32 +1,25 @@
 package com.mac.demo.service;
 
-import java.awt.print.Pageable;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.net.URLDecoder;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.authenticator.SavedRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.convert.SimplePropertyValueConversions;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.PageInfo;
 import com.mac.demo.mappers.AttachMapper;
 import com.mac.demo.mappers.BoardMapper;
 import com.mac.demo.mappers.UserMapper;
@@ -38,29 +31,28 @@ import com.mac.demo.model.User;
 @Service
 public class BoardService {
 
-	@Autowired
 	private BoardMapper boardDao;
-	
-	@Autowired
 	private UserMapper userDao;
-	
-	@Autowired
 	private AttachMapper attachDao;
-	
-	@Autowired
 	ResourceLoader resourceLoader;
 	
+	
+	public BoardService(BoardMapper boardDao, UserMapper userDao, AttachMapper attachDao,
+						ResourceLoader resourceLoader) {
+		this.boardDao = boardDao;
+		this.userDao = userDao;
+		this.attachDao = attachDao;
+		this.resourceLoader = resourceLoader;
+	}
+	
+	
 //	------------------List-------------------
-	public List<Board> getFreeList(){
-		return boardDao.getFreeList();
+	public List<Board> getBoardList(String categoryMac){
+		return boardDao.getBoardList(categoryMac);
 	}
 	
 	public List<Board> getNoticeList() {
 		return boardDao.getNoticeList();
-	}
-	
-	public List<Board> getAdsList() {
-		return boardDao.getAdsList();
 	}
 
 //	------------------id로 유저정보 가져오기-------------------    
@@ -69,54 +61,36 @@ public class BoardService {
 	}
 	
 //	------------------ SAVE -------------------    
-	public boolean saveToFree(Board board){
-		return 0 < boardDao.saveToFree(board);
-	}
-	public boolean saveToAds(Board board){
-		return 0 < boardDao.saveToAds(board);
+	public boolean save(Board board){
+		return 0 < boardDao.save(board);
 	}
 	
 //	------------------상세보기-------------------    
-	public Board getFreeDetail(int num) {
-		return boardDao.getFreeDetail(num);
-	}
-	public Board getAdsDetail(int num) {
-		return boardDao.getAdsDetail(num);
+	public Board getDetail(int numMac, String categoryMac) {
+		return boardDao.getDetail(numMac, categoryMac);
 	}
 	public Board getNoticeDetail(int num) {
 		return boardDao.getNoticeDetail(num);
 	}
 	
 //	------------------DELETE-------------------    
-	public boolean Freedelete(int num) {
-		return 0 > boardDao.Freedelete(num);
-	}
-	public boolean Adsdelete(int num) {
-		return 0 > boardDao.Adsdelete(num);
+	public boolean delete(int num) {
+		return 0 > boardDao.delete(num);
 	}
 	public boolean Noticedelete(int num) {
 		return 0 > boardDao.Noticedelete(num);
 	}
-	public boolean Freeedit(Board board) {
-		return 0 < boardDao.Freeedit(board);
-	}
-	public boolean Adsedit(Board board) {
-		return 0 < boardDao.Adsedit(board);
+	
+//	------------------UPDATE-------------------
+	public boolean update(Board board) {
+		return 0 < boardDao.update(board);
 	}
 	public boolean Noticeedit(Board board) {
 		return 0 < boardDao.Noticeedit(board);
 		
-	}
-	public boolean freeCommentAllDelete(int num) {
-		return 0<boardDao.freeCommentAllDelete(num);
-		
-	}
-	public boolean adsCommentAllDelete(int num) {
-		return 0<boardDao.adsCommentAllDelete(num);
+//  -----------------COMMENT-----------------
 	}
 	
-	
-//	-----------------------댓글-----------------------
 	public List<Comment> getCommentList(int num){
 		return boardDao.getCommentList(num);		
 	}
@@ -128,7 +102,7 @@ public class BoardService {
 	public boolean commentdelete(int numMac) {
 		return 0 < boardDao.commentdelete(numMac);
 	}
-
+	
 //	-----------------------SEARCH-----------------------	
 	public List<Board> getFreeListByKeyword(String titleMac){
 		return boardDao.getFreeListByKeyword(titleMac);
@@ -156,29 +130,94 @@ public class BoardService {
 	}
 	
 //	------------------------File------------------------
-	public boolean insert(List<Attach> attList) {
-		System.out.println("BoardService : " + attList.get(0).getFileNameMac());
-		int res = attachDao.insertMultiAttach(attList);
-		System.out.println(res + "개 업로드성공");
+	public List<Attach> getFileSet(Board board, MultipartFile[] mfiles, HttpServletRequest request) {
+		ServletContext context = request.getServletContext();
+		String savePath = context.getRealPath("/WEB-INF/files");
+		String fname_changed = null;
+		
+		// 파일 VO List
+		List<Attach> attList = new ArrayList<>();
+		
+		// 업로드
+		try {
+			for (int i = 0; i < mfiles.length; i++) {
+				// mfiles 파일명 수정
+				String[] token = mfiles[i].getOriginalFilename().split("\\.");
+				fname_changed = token[0] + "_" + System.nanoTime() + "." + token[1];
+				
+					// Attach 객체 만들어서 가공
+					Attach _att = new Attach();
+					_att.setIdMac(board.getIdMac());
+					_att.setNickNameMac(getOne(board.getIdMac()).getNickNameMac());
+					_att.setFileNameMac(fname_changed);
+					_att.setFilepathMac(savePath);
+				
+				attList.add(_att);
 
-		return res==attList.size();
+//				메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+				mfiles[i].transferTo(
+						new File(savePath + "/" + fname_changed));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return attList;
 	}
 	
-//	public boolean update(List<Attach> attList) {
-//		System.out.println("BoardService : " + attList.get(0).getFileNameMac());
-//		int res = attachDao.updateMultiAttach(attList);
-//		System.out.println(res + "개 업로드성공(update)");
-//
-//		return res==attList.size();
-//	}
-//	
+	public List<Attach> getUpdateFileSet(Board board, MultipartFile[] mfiles, HttpServletRequest request) {
+		ServletContext context = request.getServletContext();
+		String savePath = context.getRealPath("/WEB-INF/files");
+		String fname_changed = null;
+		
+		// 파일 VO List
+		List<Attach> attList = new ArrayList<>();
+		
+		// 업로드
+		try {
+			for (int i = 0; i < mfiles.length; i++) {
+				// mfiles 파일명 수정
+				String[] token = mfiles[i].getOriginalFilename().split("\\.");
+				fname_changed = token[0] + "_" + System.nanoTime() + "." + token[1];
+				
+					// Attach 객체 만들어서 가공
+					Attach _att = new Attach();
+					_att.setPcodeMac(board.getNumMac());			_att.setIdMac(board.getIdMac());
+					_att.setNickNameMac(getOne(board.getIdMac()).getNickNameMac());
+					_att.setFileNameMac(fname_changed);
+					_att.setFilepathMac(savePath);
+				
+				attList.add(_att);
+
+//				메모리에 있는 파일을 저장경로에 옮기는 method, local 디렉토리에 있는 그 파일만 셀렉가능
+				mfiles[i].transferTo(
+						new File(savePath + "/" + fname_changed));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return attList;
+	}
+	
+	public boolean fileinsert(Board board, MultipartFile[] mfiles, HttpServletRequest request) {
+		int res = attachDao.insertMultiAttach(getFileSet(board, mfiles, request));
+		System.out.println(res + "개 파일 업로드성공");
+
+		return res==getFileSet(board, mfiles, request).size();
+	}
+	
+	
+	public boolean fileupdate(Board board, MultipartFile[] mfiles, HttpServletRequest request) {
+		int res = attachDao.updateMultiAttach(getUpdateFileSet(board, mfiles, request));
+		System.out.println(res + "개 파일 업로드성공(update)");
+
+		return res==getFileSet(board, mfiles, request).size();
+	}
+	
+	
 	public List<Attach> getFileList(int pcodeMac){
 		return attachDao.getFileList(pcodeMac);
-	}
-	
-	//공지사항 파일 리스트
-	public List<Attach> getNotcieFileList(int pcodeMac) {
-		return attachDao.getNoticeFileList(pcodeMac);
 	}
 
 
@@ -186,71 +225,13 @@ public class BoardService {
 		String fname = attachDao.getFname(num);
 		return fname;
 	}
-	public String getNoticeFname(int num) {
-		String fname = attachDao.getNoticeFname(num);
-		return fname;
-	}
 
-	public Attach getDetailByNum(int _num) {
-		List<Map<String,Object>> list = attachDao.getDetailByNum(_num);
-		
-//		Fileupload vo = new Fileupload();
-		for(int i=0; i<list.size(); i++) {
-			Map<String, Object> map = list.get(i);
-			
-			int num = ((BigDecimal)map.get("NUM")).intValue();
-			String writer = (String)map.get("WRITER");
-			Date udate = new Date(((Timestamp)map.get("UDATE")).getTime());
-			String comments = (String)map.get("COMMENTS");
-			
-			String fname = (String)map.get("FNAME");
-			
-			if(fname != null) {
-				Attach attvo = new Attach();
-				int fnum = ((BigDecimal)map.get("FNUM")).intValue();
-			}
-		}
-		return null;
-	}
-	
 
 	public boolean filedelete(int num) {
 		int removed = attachDao.filedelete(num);
 		return removed > 0;
 	}
 
-	@Transactional(rollbackFor = {Exception.class})
-	public boolean delete3(HttpServletRequest request, int num) throws Exception {
-		boolean attDeleted = attachDao.deleteAttInfo(num)>0;
-		if(!attDeleted) throw new Exception("attach_tb rows delete fail");
-		
-		boolean uploadDeleted = attachDao.deleteUpload(num)>0;
-		if(!uploadDeleted) throw new Exception("upload_tb rows delete fail");
-		
-		//게시물 번호를 이용해서 첨부파일명 모두 가져오기
-		List<String> fnameList = attachDao.getAttachByPnum(num);
-		String dir = request.getServletContext().getRealPath("WEB-INF/files/");
-		int delCnt = 0;
-		
-			if(!(fnameList==null) || fnameList.size()==0) {
-				for(int i=0; i<fnameList.size(); i++) {
-					String path = dir + fnameList.get(i);
-					File f = new File(path);
-					if(!f.exists()) {
-						System.out.println("File Not Found, '" + path + "'");
-						continue;
-					}
-					delCnt += f.delete() ? 1:0;
-				}
-				if(delCnt==fnameList.size()) {
-					System.out.println("Successfully deleted!");
-				} else {
-					System.out.println("Faile to delete the files");
-					throw new Exception("file delete fail");
-				}
-			}
-		return true;
-	}
 	
 	public boolean insertMultiAttach(Attach vo) {
 		int pcodeMac = vo.getNumMac();  // 자동 증가된 업로드 번호를 받음
@@ -296,62 +277,18 @@ public class BoardService {
 		return file;
 	}
 	
-	//공지사항 다운로드
-	public ResponseEntity<Resource> noticeDownload(HttpServletRequest request, int fileNum) throws Exception {
-		String filename = getNoticeFname(fileNum);
-		String originFilename = URLDecoder.decode(filename, "UTF-8");
-		Resource resource = resourceLoader.getResource("WEB-INF/files/" + originFilename);
-		System.out.println("파일명:" + resource.getFilename());
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-//			System.out.println(contentType); // return : image/jpeg
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-		
-		ResponseEntity<Resource> file =  ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				// HttpHeaders.CONTENT_DISPOSITION는 http header를 조작하는 것, 화면에 띄우지 않고 첨부화면으로
-				// 넘어가게끔한다
-				// filename=\"" + resource.getFilename() + "\"" 는 http프로토콜의 문자열을 고대로 쓴 것
-				.body(resource);
-		
-		return file;
-	}
-	
-
 	
 //	------------------------PAGE------------------------
-	public int[] getLinkRange(Page<Board> pageInfo) {
-		int start = 0;
-		int end = 0;
+	public PageInfo<Board> getPageInfo(String categoryMac) {
+		PageInfo<Board> pageInfo = null;
 		
-		if (pageInfo.getNumber() - 2 < 0) {
-			start = 0;
+		if (categoryMac.contentEquals("notice")) {
+			pageInfo = new PageInfo<>(getNoticeList());
 		} else {
-			start = pageInfo.getNumber() - 2;
+			pageInfo = new PageInfo<>(getBoardList(categoryMac));
 		}
 		
-		if (pageInfo.getTotalPages() < (start + 4)) {
-			end = pageInfo.getTotalPages();
-			start = (end - 4) < 0 ? 0 : (end - 4);
-		} else {
-			end = start + 4;
-		}
-		return new int[] { start, end };
+		return pageInfo;
 	}
-
-
-
 	
-	
-
-	
-
-
 }

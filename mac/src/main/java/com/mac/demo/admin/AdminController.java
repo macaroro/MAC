@@ -40,8 +40,7 @@ public class AdminController {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
-	
-	
+
 	//관리자 페이지 메인
 		@GetMapping("/admin")
 		public String adminMain() {
@@ -343,7 +342,7 @@ public class AdminController {
 					model.addAttribute("page", page);
 					model.addAttribute("idMac",(String)session.getAttribute("idMac"));
 					
-					return "thymeleaf/mac/board/notice_boardList_copy";
+					return "thymeleaf/mac/board/notice_boardList";
 				}
 				
 				
@@ -365,7 +364,7 @@ public class AdminController {
 					
 					// 댓글 삭제를 위한 idMac체크
 					
-					return "thymeleaf/mac/board/notice_board_detail_copy";
+					return "thymeleaf/mac/board/notice_board_detail";
 				}
 				
 				@GetMapping("board/noticeFile/download/{filenum}")
@@ -392,7 +391,7 @@ public class AdminController {
 					model.addAttribute("pageInfo",pageInfo);
 					model.addAttribute("page", page);
 					
-					return "thymeleaf/mac/board/notice_boardList_copy";
+					return "thymeleaf/mac/board/notice_boardList";
 				}
 
 				
